@@ -1,0 +1,20 @@
+{
+  "name": "high-voltage-experiment",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-debug": "^2.1.2"
+  },
+  "engines": {
+    "node": "~5.10.1"
+  }
+}

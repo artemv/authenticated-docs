@@ -3,14 +3,20 @@ Rails.application.routes.draw do
 
 
   devise_for :users
-  
+
   resources :users
+
+# config/routes.rb
+  get "/*id" => 'pages#show', format: false
+
+# if routing the root path, update for your controller
+  root to: 'pages#show', id: 'index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'users#index'
+  # root 'users#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
