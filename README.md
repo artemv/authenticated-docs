@@ -5,7 +5,7 @@
 ## What is it
 A simple Rails app with Devise authentication to serve static docs generated with a tool like [MkDocs](http://www.mkdocs.org/).
 Static html is served by [HighVoltage](https://github.com/thoughtbot/high_voltage) customized to serve pathes
-containing whitespaces and dir pathes missing 'index' filename.
+containing whitespaces and dir pathes missing 'index' filename. [RailsAdmin](https://github.com/sferik/rails_admin) is used for users administration.
 
 ## Usage
 This assumes you have a docs-building project in Git, the built docs are in 'site' directory and now want to deploy it
