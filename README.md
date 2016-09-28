@@ -8,9 +8,10 @@ Static html is served by [HighVoltage](https://github.com/thoughtbot/high_voltag
 containing whitespaces and dir pathes missing 'index' filename.
 
 ## Usage
-* Install Node.JS (v5.1 or higher)
 This assumes you have a docs-building project in Git, the built docs are in 'site' directory and now want to deploy it
-to Heroku. In your projects dir:
+to Heroku.
+* Install Node.JS (v5.1 or higher)
+* Change current dir to your project: `cd my-docs-project`
 * Install authenticated-docs and couple additional tools:
 ```
 npm install authenticated-docs gh-pages gulp gulp-debug
@@ -39,6 +40,7 @@ git fetch && git checkout -f deploy && git reset --hard origin/deploy
 git remote add heroku https://git.heroku.com/my-docs.git # user proper path for your app
 git push -f heroku HEAD:master
 heroku run rake db:migrate
+heroku restart
 ```
 
 ## Local installation
