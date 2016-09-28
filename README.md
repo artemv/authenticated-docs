@@ -37,7 +37,7 @@ git fetch && git checkout -f deploy && git reset --hard origin/deploy
 [.env.example](https://raw.githubusercontent.com/artemv/authenticated-docs/master/.env.example) file of this project
 * Push the deploy branch to Heroku
 ```
-git remote add heroku https://git.heroku.com/my-docs.git # user proper path for your app
+git remote add heroku https://git.heroku.com/my-docs.git # use proper path for your app
 git push -f heroku HEAD:master
 heroku run rake db:migrate
 heroku restart
