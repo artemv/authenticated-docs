@@ -60,10 +60,18 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     devise-bootstrap-views (0.0.7)
+    dotenv (2.1.1)
+    dotenv-rails (2.1.1)
+      dotenv (= 2.1.1)
+      railties (>= 4.0, < 5.1)
     erubis (2.7.0)
     execjs (2.6.0)
+    font-awesome-rails (4.6.1.0)
+      railties (>= 3.2, < 5.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    haml (4.0.6)
+      tilt
     high_voltage (3.0.0)
     i18n (0.7.0)
     jbuilder (2.3.2)
@@ -73,7 +81,12 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     json (1.8.3)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -82,11 +95,16 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
+    nested_form (0.3.2)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
     pg (0.18.2)
+    puma (3.4.0)
     rack (1.6.4)
+    rack-pjax (0.8.0)
+      nokogiri (~> 1.5)
+      rack (~> 1.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5)
@@ -108,6 +126,25 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_admin (0.6.7)
+      builder (~> 3.1)
+      coffee-rails (~> 4.0)
+      font-awesome-rails (>= 3.0, < 5)
+      haml (~> 4.0)
+      jquery-rails (>= 3.0, < 5)
+      jquery-ui-rails (~> 5.0)
+      kaminari (~> 0.14)
+      nested_form (~> 0.3)
+      rack-pjax (~> 0.7)
+      rails (~> 4.0)
+      remotipart (~> 1.0)
+      safe_yaml (~> 1.0)
+      sass-rails (>= 4.0, < 6)
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (4.2.5)
       actionpack (= 4.2.5)
       activesupport (= 4.2.5)
@@ -116,8 +153,10 @@ GEM
     rake (10.4.2)
     rdoc (4.2.1)
       json (~> 1.4)
+    remotipart (1.2.1)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
+    safe_yaml (1.0.4)
     sass (3.4.20)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -162,17 +201,24 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise (~> 3.4.0)
   devise-bootstrap-views
+  dotenv-rails
   high_voltage
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  puma
   rails (= 4.2.5)
+  rails_12factor
+  rails_admin
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.12.5
