@@ -16,7 +16,7 @@ to Heroku.
 ```
 npm install authenticated-docs gh-pages gulp gulp-debug
 ```
-* Copy docs files to authenticated-docs dirs with script:
+* Copy docs files to authenticated-docs dirs:
 ```
 ./node_modules/.bin/gulp --gulpfile node_modules/authenticated-docs/Gulpfile.js --cwd ./ prepare
 ```
@@ -27,9 +27,9 @@ npm install authenticated-docs gh-pages gulp gulp-debug
 * Switch to the deploy branch:
 ```
 # first time
-git fetch && git checkout -f -b deploy origin/deploy
+git fetch && git checkout -b deploy origin/deploy
 # next time
-git fetch && git checkout -f deploy && git reset --hard origin/deploy
+git fetch && git checkout deploy && git reset --hard origin/deploy
 ```
 * Create a my-docs app at Heroku (use whatever app name you like)
 * Provision the Heroku app with Sendgrid addon for sending auth emails like the one for 'forgot password' function
