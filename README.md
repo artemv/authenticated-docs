@@ -31,7 +31,7 @@ rails s
 * Follow steps from 'Local installation' section, replacing git url with the one of your fork
 * (In your local directory of authenticated-docs) publish the prepared dirs to 'deploy' Git branch:
 ```
-./node_modules/gh-pages/bin/gh-pages -b deploy
+./node_modules/gh-pages/bin/gh-pages -d . -b deploy
 ```
 * Switch to the deploy branch:
 ```
