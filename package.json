@@ -1,0 +1,41 @@
+{
+  "name": "authenticated-docs",
+  "description": "A simple Rails app with Devise authentication to serve static docs generated with a tool like MkDocs",
+  "author": {
+    "name": "Artem Vasiliev",
+    "email": "artem.job@gmail.com",
+    "url": "https://github.com/artemv"
+  },
+  "license": "MIT",
+  "keywords": [
+    "rails",
+    "authentication",
+    "docs",
+    "static",
+    "mkdocs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artemv/authenticated-docs.git"
+  },
+  "devDependencies": {
+    "gh-pages": "^0.11.0",
+    "gulp": "^3.9.1",
+    "gulp-debug": "^2.1.2",
+    "freeform-semantic-commit-analyzer": "^1.1.0",
+    "semantic-release": "^4.3.5",
+    "condition-circle": "^1.2.0"
+  },
+  "release": {
+    "analyzeCommits": "./node_modules/freeform-semantic-commit-analyzer/dist/index.js",
+    "verifyConditions": "condition-circle"
+  },
+  "scripts": {
+    "test": "echo ok",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "engines": {
+    "node": ">=5.10",
+    "npm": ">=3.8"
+  }
+}

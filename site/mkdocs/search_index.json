@@ -1,0 +1,894 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to PaperTrail Developer Portal\n\n\nInstall Python\n\n\nTools\n\n\nsudo pip install git+https://github.com/egis/papertrail-python-cli --upgrade\n\n\n\n\nAnd enter your Sudo password\n\n\nor \n\n\ngit clone https://github.com/egis/papertrail-python-cli --upgrade\ncd papertrail-python-cli\nsudo python setup.py install\n\n\n\n\nThen \npt --help", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#welcome-to-papertrail-developer-portal", 
+            "text": "Install Python", 
+            "title": "Welcome to PaperTrail Developer Portal"
+        }, 
+        {
+            "location": "/#tools", 
+            "text": "sudo pip install git+https://github.com/egis/papertrail-python-cli --upgrade  And enter your Sudo password  or   git clone https://github.com/egis/papertrail-python-cli --upgrade\ncd papertrail-python-cli\nsudo python setup.py install  Then  pt --help", 
+            "title": "Tools"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/", 
+            "text": "Coding conventions\n\n\n\n\nUse interfaces where possible e.g. List instead of ArrayList\n\n\nAll collections must be generified\n\n\nTabs not spaces\n\n\nNo final on classes, methods\n\n\nFinal preferred on params and local vars\n\n\nTry and remove compiler warnings where possible\n\n\n\n\nClasses:\n\n\n- \u2018*\u2019 imports not allowed\n\n\n\nVariables\n\n\n- \n 30 characters long\n- shorter, easy to spell preferred\n- must not include data type\n\n\n\nMethods\n\n\n- should do one and only one thing\n- limit parameter count to \n 5, if more consider using DTO\n- boolean parameters discouraged\n\n\n\nCommenting\n\n\n\n\nComment why not what or how\n\n\nNo comments on getters, setters \u2013 if a comment is required it is an indication that the\ngetter/setter is doing too much\n\n\nrefactor comments on methods into the method name\n\n\nrefactor comments on code blocks into separate methods\n\n\nClear self-explanatory code is preferred to comments\n\n\n\n\nNaming\n\n\n\n\nNo Abbreviations / Acronyms except when they are commonly accepted e.g doc, prop, i\n\n\nClass Names are CamelCase, eg SimpleClass\n\n\nVariable, Method names are camelCase e.g, simpleVariable, simpleMethod\n\n\nPackage names are single words only\n\n\nExternal propserites should use dot separator, all lowercase e.g. some.external.property\n\n\n\n\nSource Control\n\n\n\n\nCommit Format: \n - \n e.g. PPT-001 - updated x todo y\n\n\nCommit all files for a change in a single commit\n\n\nCommit one change at a time\n\n\nCommit refactorings on their own\n\n\n\n\nI", 
+            "title": "Code Style Guide"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/#coding-conventions", 
+            "text": "Use interfaces where possible e.g. List instead of ArrayList  All collections must be generified  Tabs not spaces  No final on classes, methods  Final preferred on params and local vars  Try and remove compiler warnings where possible", 
+            "title": "Coding conventions"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/#classes", 
+            "text": "- \u2018*\u2019 imports not allowed", 
+            "title": "Classes:"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/#variables", 
+            "text": "-   30 characters long\n- shorter, easy to spell preferred\n- must not include data type", 
+            "title": "Variables"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/#methods", 
+            "text": "- should do one and only one thing\n- limit parameter count to   5, if more consider using DTO\n- boolean parameters discouraged", 
+            "title": "Methods"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/#commenting", 
+            "text": "Comment why not what or how  No comments on getters, setters \u2013 if a comment is required it is an indication that the\ngetter/setter is doing too much  refactor comments on methods into the method name  refactor comments on code blocks into separate methods  Clear self-explanatory code is preferred to comments", 
+            "title": "Commenting"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/#naming", 
+            "text": "No Abbreviations / Acronyms except when they are commonly accepted e.g doc, prop, i  Class Names are CamelCase, eg SimpleClass  Variable, Method names are camelCase e.g, simpleVariable, simpleMethod  Package names are single words only  External propserites should use dot separator, all lowercase e.g. some.external.property", 
+            "title": "Naming"
+        }, 
+        {
+            "location": "/Back End/Code Style Guide/#source-control", 
+            "text": "Commit Format:   -   e.g. PPT-001 - updated x todo y  Commit all files for a change in a single commit  Commit one change at a time  Commit refactorings on their own   I", 
+            "title": "Source Control"
+        }, 
+        {
+            "location": "/Back End/Models/", 
+            "text": "Models\n\n\nA model is wrapper around a DOcumentModel that exposes business logic - i.e. a Domain Model e.g. a specific type of Document like a purchase order\n\n\nTo create a new PaperTRail model, extend the \nPaperTrailModel\n\n\n@Table(name = \npurchase_order\n)\npublic class PurchaseOrder extends PaperTrailModel {\n\n@Id\nprivate String orderNo;\n\n\n\n\n@Table\n will be the node in PaperTrail where the document is stored\n\n\n@Id\n will be the logical or natural key to find an order.\n\n\nOnce you have a model you can:\n\n\ninsert()\n create a new item in PaperTrail\n\n\nsave()\n insert and/or update the indexes\n\n\ndelete()\n  \n\n\nQuering or retrieving models\n\n\nPurchaseOrder order = PaperTrailModel.findById(PurchaseOrder.class, \n123\n); //123 is the purchase order no\n\n\n\n\nAs a best practise add a find() shortcut to all models you create\n\n\nstatic PurchaseOrder find(String orderNo) {\n   return PaperTrailModel.findById(PurchaseOrder.class, orderNo);\n}\n\n\n\n\nOr if you have an existing DocumentModel you can convert it using:\n\n\nDocumentModel doc = ...\nPurchaseOrder order = doc.toModel(PurchaseOrder.class);\n\n\n\n\nAdding metadata to to model\n\n\nJust add public fields into the model\n\n\n\n```java\n@Table(name = \npurchase_order\n)\npublic class PurchaseOrder extends PaperTrailModel {\n\n@Id\npublic String orderNo;\n\npublic String total;\n\npublic String supplier;\n\npublic String items;\n\n\n\n\nThis allows you to convert a dynamic doc.metadata().get('total') call into a static order.total call with all the benefits of IDE auto complete and refactoring.\n\n\nRemapping Model fields\n\n\nThe node specified in \n@Table\n and the Java field name can be remapped using a mapping.properties stored in the \nconf\n directory\n\n\nThe default mapping:\n\n\npurchase_order.node=purchase_order\npurchase_order.id=orderNo\npurchase_order.orderNo=orderNo\n\n\n\n\nWe can change this in the runtime environment using:\n\n\npurchase_order.node=ACME Corp/Finance/Purchase Order\npurchase_order.id=ORDER_NO\npurchase_order.orderNo=ORDER_NO\npurchase_order.total=TOTAAL\n\n\n\n\n\n\nMake sure your test and runtime environment use the same mapping.properties\n\n\n\n\nAdding methods\n\n\n\npublic void checkAuthLimit() {\n  //query users against total amount.\n}\n\n\n\n\nYou can also use \n@Transient\n fields to save temporary values that are not saved as indexes\n\n\n\n@Transient Boolean _cached;\n\npublic void checkAuthLimit() {\nif (_cached != null) {\n   return _cached;\n} else {\n  _cached = //very time consuming to run.\n}\n\n\n\n\nRelationships\n\n\nGiven a supplier model\n\n\n\n@Table(name = \nsupplier\n)\npublic class Supplier extends PaperTrailModel {\nString name, id, email\n}\n\n\n\n\nYou can relate it to a purchase order, with the supplier id number being saved in the supplier index on the PO.\n\n\nSupplier supplier;\n\n\n\n\nWhich then allows you to follow the relationship in code using:\n\n\nPurchaseOrder order = //....\norder.supplier.email\n\n\n\n\nRoadmap\n\n\n\n\nOne To Many relationships\n\n\n@Validations\n\n\nauto create node structure and indexes\n\n\nreverse node structure + indexes into model", 
+            "title": "Models"
+        }, 
+        {
+            "location": "/Back End/Models/#models", 
+            "text": "A model is wrapper around a DOcumentModel that exposes business logic - i.e. a Domain Model e.g. a specific type of Document like a purchase order  To create a new PaperTRail model, extend the  PaperTrailModel  @Table(name =  purchase_order )\npublic class PurchaseOrder extends PaperTrailModel {\n\n@Id\nprivate String orderNo;  @Table  will be the node in PaperTrail where the document is stored  @Id  will be the logical or natural key to find an order.  Once you have a model you can:  insert()  create a new item in PaperTrail  save()  insert and/or update the indexes  delete()", 
+            "title": "Models"
+        }, 
+        {
+            "location": "/Back End/Models/#quering-or-retrieving-models", 
+            "text": "PurchaseOrder order = PaperTrailModel.findById(PurchaseOrder.class,  123 ); //123 is the purchase order no  As a best practise add a find() shortcut to all models you create  static PurchaseOrder find(String orderNo) {\n   return PaperTrailModel.findById(PurchaseOrder.class, orderNo);\n}  Or if you have an existing DocumentModel you can convert it using:  DocumentModel doc = ...\nPurchaseOrder order = doc.toModel(PurchaseOrder.class);", 
+            "title": "Quering or retrieving models"
+        }, 
+        {
+            "location": "/Back End/Models/#adding-metadata-to-to-model", 
+            "text": "Just add public fields into the model  \n```java\n@Table(name =  purchase_order )\npublic class PurchaseOrder extends PaperTrailModel {\n\n@Id\npublic String orderNo;\n\npublic String total;\n\npublic String supplier;\n\npublic String items;  This allows you to convert a dynamic doc.metadata().get('total') call into a static order.total call with all the benefits of IDE auto complete and refactoring.", 
+            "title": "Adding metadata to to model"
+        }, 
+        {
+            "location": "/Back End/Models/#remapping-model-fields", 
+            "text": "The node specified in  @Table  and the Java field name can be remapped using a mapping.properties stored in the  conf  directory  The default mapping:  purchase_order.node=purchase_order\npurchase_order.id=orderNo\npurchase_order.orderNo=orderNo  We can change this in the runtime environment using:  purchase_order.node=ACME Corp/Finance/Purchase Order\npurchase_order.id=ORDER_NO\npurchase_order.orderNo=ORDER_NO\npurchase_order.total=TOTAAL   Make sure your test and runtime environment use the same mapping.properties", 
+            "title": "Remapping Model fields"
+        }, 
+        {
+            "location": "/Back End/Models/#adding-methods", 
+            "text": "public void checkAuthLimit() {\n  //query users against total amount.\n}  You can also use  @Transient  fields to save temporary values that are not saved as indexes  \n@Transient Boolean _cached;\n\npublic void checkAuthLimit() {\nif (_cached != null) {\n   return _cached;\n} else {\n  _cached = //very time consuming to run.\n}", 
+            "title": "Adding methods"
+        }, 
+        {
+            "location": "/Back End/Models/#relationships", 
+            "text": "Given a supplier model  \n@Table(name =  supplier )\npublic class Supplier extends PaperTrailModel {\nString name, id, email\n}  You can relate it to a purchase order, with the supplier id number being saved in the supplier index on the PO.  Supplier supplier;  Which then allows you to follow the relationship in code using:  PurchaseOrder order = //....\norder.supplier.email", 
+            "title": "Relationships"
+        }, 
+        {
+            "location": "/Back End/Models/#roadmap", 
+            "text": "One To Many relationships  @Validations  auto create node structure and indexes  reverse node structure + indexes into model", 
+            "title": "Roadmap"
+        }, 
+        {
+            "location": "/Back End/Scripting/", 
+            "text": "PaperTrail Scripting\n\n\nPapertrail exposes a number of services and objects that are available to use in scripts e.g. runScript rule etc..\n\n\nDocument\n\n\nThe DocumentModel is the core object that will be used for scripting it will be available in most scripts in the \ndoc\n variable\n\n\nIt is a Java Class of type com.egis.DocumentModel that also support the groovy dynamic functions e.g.\n\n\ne.g. the following are all equivalent.\n\n\ndoc.metadata().get('index1')\ndoc.index1\ndoc[\nindex1\n]\n\n\n\n\nAny \ndocument property\n can used.\n\n\nPrior to 8.3.3 doc.save() needed to be called in order to ensure that the indexes and document grid were correctly updated, however from 8.3.3 doc.save() is optional and only needs to be used to force a flush to the database. Any unsaved documents will be saved on database commit\n\n\nSee \nDocumentModel\n\n\nSession\n\n\nThe session corresponds to the request and is bound to a specific user which is accessible via \nsession.user\n\nA documents session is available via \ndoc.session\n\n\nAnd from anywhere via:\n\n\ncom.egis.kernel.Kernel.get(com.egis.Session.class)\n\n\n\n\nSee \nSession\n\n\nQuerying Documents\n\n\nsession.getDocument(1); // get document by docId\nsession.getDocument('1'); // get document by docId\nsession.getDocument('System/templates/test.txt'); // get document by path\nsession.getDocument('Invoices/invoiceNo=123'); // get document by query\nsession.getDocument(\nSELECT * FROM 'Invoices' WHERE invoiceNo = 123\n); // get document by PQL\n\n\n\n\nSession.query\n\n\nSession.query has the following syntax: \nsession.query(query,\n \nclazz\n)\n where clazz is one of:\n\n\n\n\nDocumentModel.class - the default and equivalent to session.query(query)\n\n\nMap.class\n\n\nString.class\n\n\nLong.class\n\n\ncom.egis.utils.js.JsArray.class\n\n\nResult.class\n\n\n\n\niterate through a list of documents return from a search\n\n\nsession.query(\nSELECT * FROM 'Invoices'\n).each {doc -\n\u00a0\n    \u00a0println doc.filename\n}\n\n\n\n\nquering for data\n\n\nsession.query(\nSELECT index1,index2 FROM 'Invoices'\n, Map.class).each { map -\n\u00a0\n\u00a0 \u00a0 assert map.size() == 2;\n\u00a0\u00a0 \u00a0assert map.index1 != null \n map.index2 !- null\n}\n\n\n\n\nImporting Documents\n\n\nInputStream in =\u00a0new ByteArrayInputStream(\ntest\n.bytes);\nsession.createDocument('System/templates', 'test.txt', in)\n\n\n\n\nor 2 steps\n\n\ndoc = \u00a0session.createDocument('System/templates', 'test.txt')\ndoc.title = 'Default TXT Template'\ndoc.content().write(in);\n\n// which would result in\nin === doc.content().read()\n\n\n\n\ncreating an item\n\n\ndoc = session.createItem('System/templates', 'Item)\n\n\n\n\nLinks\n\n\nLinked Documents on a DocumentModel are accessible from \ndoc.links()\n\n\nchecking if a doc has links\n\n\ndoc.links().hasAny()\n\n//returns a Boolean\n\n\n\n\nchecking if a doc is linked to another\n\n\ndoc.links().contains(session.getDocument(1))\ndoc.links().contains('System/templates/test.txt')\n\n//returns a Boolean\n\n\n\n\nadding a link\n\n\ndoc.links().add(session.getDocument(1))\ndoc.links().add('System/templates/test.txt')\n\n\n\n\nremoving a link\n\n\ndoc.links().remove(session.getDocument(1))\ndoc.links().remove('System/templates/test.txt')\n\n\n\n\ngetting all links with link data\n\n\ndoc.links().getAllData()\n\n//returns a list of \nLinkDocument\n\n\n\n\n\niterating over all links as LinkDocument\n\n\ndoc.links().getAllData().each {\n    println it.filename //linked document filename\n    println it.direction //link direction\n}\n\n\n\n\ngetting all links as DocumentModel\n\n\ndoc.links().getAll()\n\n//returns a list of \nDocumentModel\n\n\n\n\n\niterating over all links as DocumentModel\n\n\ndoc.links().getAll().each { link -\n\n    println link.createdBy\n}\n\n\n\n\nYou can import any class in \u00a0any jar file available in the System/jars (recommended for production) or on the classpath that PaperTrail was started with.\n\n\nSee \nJavaDocs\n for all classes in the public API.", 
+            "title": "Scripting"
+        }, 
+        {
+            "location": "/Back End/Scripting/#papertrail-scripting", 
+            "text": "Papertrail exposes a number of services and objects that are available to use in scripts e.g. runScript rule etc..", 
+            "title": "PaperTrail Scripting"
+        }, 
+        {
+            "location": "/Back End/Scripting/#document", 
+            "text": "The DocumentModel is the core object that will be used for scripting it will be available in most scripts in the  doc  variable  It is a Java Class of type com.egis.DocumentModel that also support the groovy dynamic functions e.g.  e.g. the following are all equivalent.  doc.metadata().get('index1')\ndoc.index1\ndoc[ index1 ]  Any  document property  can used.  Prior to 8.3.3 doc.save() needed to be called in order to ensure that the indexes and document grid were correctly updated, however from 8.3.3 doc.save() is optional and only needs to be used to force a flush to the database. Any unsaved documents will be saved on database commit  See  DocumentModel", 
+            "title": "Document"
+        }, 
+        {
+            "location": "/Back End/Scripting/#session", 
+            "text": "The session corresponds to the request and is bound to a specific user which is accessible via  session.user \nA documents session is available via  doc.session  And from anywhere via:  com.egis.kernel.Kernel.get(com.egis.Session.class)  See  Session", 
+            "title": "Session"
+        }, 
+        {
+            "location": "/Back End/Scripting/#querying-documents", 
+            "text": "session.getDocument(1); // get document by docId\nsession.getDocument('1'); // get document by docId\nsession.getDocument('System/templates/test.txt'); // get document by path\nsession.getDocument('Invoices/invoiceNo=123'); // get document by query\nsession.getDocument( SELECT * FROM 'Invoices' WHERE invoiceNo = 123 ); // get document by PQL", 
+            "title": "Querying Documents"
+        }, 
+        {
+            "location": "/Back End/Scripting/#sessionquery", 
+            "text": "Session.query has the following syntax:  session.query(query,   clazz )  where clazz is one of:   DocumentModel.class - the default and equivalent to session.query(query)  Map.class  String.class  Long.class  com.egis.utils.js.JsArray.class  Result.class   iterate through a list of documents return from a search  session.query( SELECT * FROM 'Invoices' ).each {doc - \u00a0\n    \u00a0println doc.filename\n}  quering for data  session.query( SELECT index1,index2 FROM 'Invoices' , Map.class).each { map - \u00a0\n\u00a0 \u00a0 assert map.size() == 2;\n\u00a0\u00a0 \u00a0assert map.index1 != null   map.index2 !- null\n}", 
+            "title": "Session.query"
+        }, 
+        {
+            "location": "/Back End/Scripting/#importing-documents", 
+            "text": "InputStream in =\u00a0new ByteArrayInputStream( test .bytes);\nsession.createDocument('System/templates', 'test.txt', in)  or 2 steps  doc = \u00a0session.createDocument('System/templates', 'test.txt')\ndoc.title = 'Default TXT Template'\ndoc.content().write(in);\n\n// which would result in\nin === doc.content().read()  creating an item  doc = session.createItem('System/templates', 'Item)", 
+            "title": "Importing Documents"
+        }, 
+        {
+            "location": "/Back End/Scripting/#links", 
+            "text": "Linked Documents on a DocumentModel are accessible from  doc.links()  checking if a doc has links  doc.links().hasAny()\n\n//returns a Boolean  checking if a doc is linked to another  doc.links().contains(session.getDocument(1))\ndoc.links().contains('System/templates/test.txt')\n\n//returns a Boolean  adding a link  doc.links().add(session.getDocument(1))\ndoc.links().add('System/templates/test.txt')  removing a link  doc.links().remove(session.getDocument(1))\ndoc.links().remove('System/templates/test.txt')  getting all links with link data  doc.links().getAllData()\n\n//returns a list of  LinkDocument   iterating over all links as LinkDocument  doc.links().getAllData().each {\n    println it.filename //linked document filename\n    println it.direction //link direction\n}  getting all links as DocumentModel  doc.links().getAll()\n\n//returns a list of  DocumentModel   iterating over all links as DocumentModel  doc.links().getAll().each { link - \n    println link.createdBy\n}  You can import any class in \u00a0any jar file available in the System/jars (recommended for production) or on the classpath that PaperTrail was started with.  See  JavaDocs  for all classes in the public API.", 
+            "title": "Links"
+        }, 
+        {
+            "location": "/Back End/Templates/", 
+            "text": "Templates Manager\n\n\nTemplateManager\n provides a service to render arbitrary data using one of the available template engines.\n\n\nThe template manager expects that templates are contained in the \nSystem/templates\n node. You should put your templates there either by using the Papertrail UI or by providing them with \nseed files\n.\n\n\nTable of Contents\n\n\n\n\nTemplate Engines\n\n\nInterface\n\n\nLayouts\n\n\nSyntax\n\n\nUsage\n\n\n\n\n\n\n\n\nTemplate Engines\n\n\nThe standard service implementation provides several template engines.\n\nTo use a specific engine you should name your template according to an expected file extension.\n\n\nThe list of available template engines (and their corresponding extensions) is the following:\n\n\n\n\n\n\nFreemarkerTemplate\n - renders Freemarker (\n.ftl\n) templates.\n\n\n\n\n\n\nHtmlTemplate\n - renders basic \n.html\n templates. It supports interpolation for variables such as \n$(templateVar)\n that are provided as a template context.\n\n\n\n\n\n\nGroovyTemplate\n - renders Grails-like \n.gsp\n templates. Syntax how-to \n samples can be found in the \nGroovy documentation\n.\n\n\n\n\n\n\nInterface\n\n\nTemplateManager.getTemplate(String name)\n should be called with the template name (without the \nSystem/templates/\n part - e.g. \ngetTemplate(\"email-preview.gsp\")\n). The method returns an object that imlements \nTemplate\n interface providing the following methods:\n\n\n\n\nrender(Map context)\n returns the string with the result of the template rendering.\n\n\ngetName()\nreturns the name of the template.\n\n\n\n\nLayouts\n\n\nIt's possible to use a layout system that takes content sections from a template with a special format and renders it wrapped in a base layout.\n\n\nSyntax\n\n\nTemplates contain several sections that are provided as variables to the layout. Sections must be wrapped in a tag of form  \ntpl-section\n, where \nsection\n should be replaced with the variable name.\n\n\nThe layout templates themselves don't support any complex rendering features, and only provide basic interpolation for variables with section contents.\n\n\nAs an example, we could have a layout with the following code:\n\n\nbody\n\n  \nh1\n${title}\n/h1\n\n  \narticle\n${content}\n/article\n\n\n/body\n\n\n\n\nThe templates using this layout must be coded as follows:\n\n\ntpl-title\nThis goes to the title variable\n/tpl-title\n\n\n\ntpl-content\n\n   This goes to the \"content\" variable.\n\n   \nstrong\nAlso, sections can contain arbitrary HTML code.\n/strong\n\n\n   And also any template engine specific syntax - e.g. for .gsp templates:\n\n   \nul\n\n     \n% for (number in [1,2,3]) { %\n\n     \nli\n${number}\n/li\n\n     \n% } %\n\n   \n/ul\n\n\n/tpl-content\n\n\n\n\nUsage\n\n\nIf you want to use the layout system, you should first add your layout files to the \nSystem/templates/layouts\n node.\n\n\nThen, to use one of the available layouts, name your template file in format of  \ntemplate_path\n_\nlayout\n.\nextension\n. E.g., you want to use a \nnotification\n layout  for your template named \naccount-signup.gsp\n - in this case you must name your template as \naccount-signup_notification.gsp\n.\n\n\nThe layout logic then works as follows:", 
+            "title": "Templates"
+        }, 
+        {
+            "location": "/Back End/Templates/#templates-manager", 
+            "text": "TemplateManager  provides a service to render arbitrary data using one of the available template engines.  The template manager expects that templates are contained in the  System/templates  node. You should put your templates there either by using the Papertrail UI or by providing them with  seed files .  Table of Contents   Template Engines  Interface  Layouts  Syntax  Usage", 
+            "title": "Templates Manager"
+        }, 
+        {
+            "location": "/Back End/Templates/#template-engines", 
+            "text": "The standard service implementation provides several template engines. \nTo use a specific engine you should name your template according to an expected file extension.  The list of available template engines (and their corresponding extensions) is the following:    FreemarkerTemplate  - renders Freemarker ( .ftl ) templates.    HtmlTemplate  - renders basic  .html  templates. It supports interpolation for variables such as  $(templateVar)  that are provided as a template context.    GroovyTemplate  - renders Grails-like  .gsp  templates. Syntax how-to   samples can be found in the  Groovy documentation .", 
+            "title": "Template Engines"
+        }, 
+        {
+            "location": "/Back End/Templates/#interface", 
+            "text": "TemplateManager.getTemplate(String name)  should be called with the template name (without the  System/templates/  part - e.g.  getTemplate(\"email-preview.gsp\") ). The method returns an object that imlements  Template  interface providing the following methods:   render(Map context)  returns the string with the result of the template rendering.  getName() returns the name of the template.", 
+            "title": "Interface"
+        }, 
+        {
+            "location": "/Back End/Templates/#layouts", 
+            "text": "It's possible to use a layout system that takes content sections from a template with a special format and renders it wrapped in a base layout.", 
+            "title": "Layouts"
+        }, 
+        {
+            "location": "/Back End/Templates/#syntax", 
+            "text": "Templates contain several sections that are provided as variables to the layout. Sections must be wrapped in a tag of form   tpl-section , where  section  should be replaced with the variable name.  The layout templates themselves don't support any complex rendering features, and only provide basic interpolation for variables with section contents.  As an example, we could have a layout with the following code:  body \n   h1 ${title} /h1 \n   article ${content} /article  /body   The templates using this layout must be coded as follows:  tpl-title This goes to the title variable /tpl-title  tpl-content \n   This goes to the \"content\" variable.\n\n    strong Also, sections can contain arbitrary HTML code. /strong \n\n   And also any template engine specific syntax - e.g. for .gsp templates:\n\n    ul \n      % for (number in [1,2,3]) { % \n      li ${number} /li \n      % } % \n    /ul  /tpl-content", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/Back End/Templates/#usage", 
+            "text": "If you want to use the layout system, you should first add your layout files to the  System/templates/layouts  node.  Then, to use one of the available layouts, name your template file in format of   template_path _ layout . extension . E.g., you want to use a  notification  layout  for your template named  account-signup.gsp  - in this case you must name your template as  account-signup_notification.gsp .  The layout logic then works as follows:", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/Front End/Helpers/", 
+            "text": "UI Helpers\n\n\nPaperTrail provides an extensive suite of Handlebar helpers and block extension that make building custom interfaces simple\n\n\nDocument tables\n\n\nThe \n{{#document_table}}\n helper will render a table based on a PQL query specified in it's body, the PQL can use standard Handlebars syntax and helpers to replace parameters: e.g.\n\n\n{{#document_table}}\n        SELECT party_name, contact_name, email, type_service, communicated FROM 'Division/Cabinet' WHERE formNo = '{{indexes.formNo}}'\n{{/document_table}}\n\n\n\n\nWould render as:\n\n\n\n\nActions can be added to each row using \n{{#action}}\n e.g. \n\n\n{{#actions}}\n   {{{action docId \ndelete_file\n icon='trash' label=\nDelete\n refresh=true class=\nbtn-inline\n}}}\n{{/actions}}\n\n\n\n\nWhich would render as: \n \n\n\nHeaders can be added using \n{{#header}}\n e.g. \n\n\n{{#header}}\n   {{{create 'Division/Cabinet' formNo=indexes.formNo label=\nAdd\n }}}\n{{/header}}\n\n\n\n\nWhich renders as: \n\n\nExample: Document table with header and actions per row\n\n\n{{#document_table}}\n    {{#header}}\n       {{{create 'Division/Cabinet' formNo=indexes.formNo }}}\n    {{/header}}\n\n    {{#actions}}\n      {{{action docId \ndelete_file\n icon='trash' label=\nDelete\n refresh=true class=\nbtn-inline\n}}}\n    {{/actions}}\n\n    SELECT party_name, contact_name, email, type_service, communicated FROM 'Division/Cabinet' WHERE formNo = '{{indexes.formNo}}'\n{{/document_table}}\n\n\n\n\nDocument Links\n\n\n{{#document_list}}\n is used for rendering only a list of document links e.g.\n\n\n{{#document_list view=true}}\n        SELECT * FROM 'Division/Cabinet WHERE formNo = '{{indexes.formNo}}'\n        {{#after}}\nbr/\n{{/after}}\n{{/document_list}}\n\n\n\n\nWill render a list, when clicking on the link it will redirect the user to that document\n\n\n\n\nThe default behaviour can be changed to view instead of redirect using \n{{#document_list view=true}}\n\n\n{{#before}}\n  blocks are rendered just before the link\n\n\n{{#after}}\n  blocks are rendered after the link and are commonly used to switch from a horizontal to verical list.  \n\n\n{{#header}}\n and \n{{#footer}}\n are also supported so it can be combined with an upload action:\n\n\n{{#document_list view=true}}\n    SELECT * FROM 'Division/Cabinet' WHERE formNo = '{{ndexes.formNo}}'\n    {{#after}}\nbr/\n{{/after}}\n    {{#footer}}\n        {{{upload 'Division/Cabinet' formNo=@root.indexes.formNo class=\nbtn-inline pr5\n }}}\n    {{/footer}}\n{{/document_list}}\n\n\n\n\nWhich renders as: \n\n\n\n\nAction Button\n\n\nAction buttons can be added using \n{{{action}}}\n\n\n\n\nNote that triple \n{{{\n unlink block helpers like \n{{#document_table}}\n,  action returns HTML which needs to be escaped using the standard Handlebars syntax of 3 braces:\n\n\n\n\ne.g. to render a Comment button: \n\n\n{{{action docId 'add_note'}}}\n\n\n\n\nUpload Button\n\n\nTo render an upload button: \n  \n\n\n {{{upload 'Division/cabinet' formNo=indexes.formNo}}}\n\n\n\n\nStandard styling can be applied to render a small upload icon only like this: \n\n\n {{{upload 'Division/cabinet' formNo=indexes.formNo  class='btn-inline' label=\nnbsp;\n}}}\n\n\n\n\nLinked Document\n\n\nA linked document is a 1-many association with another document for example many \nInvoices\n can be linked to a single \nPurchase Order\n.\nOn the invoice side of the association you can create a component that will allow the user to select a document from a document picker, the selected document's docId will then indexed in the specified index: e.g.\n\n\nTo render a browse button, to select and add a new link: \n  \n\n\n{{{linked_docid this \npo_docId\n class=\nbtn-inline\n }}}\n\n\n\n\nWhen the user clicks on it and selects a document e.g. \nPurchase Order #123.pdf\n it will change to  \n\n\nClicking the \nPurchase Order #123.pdf\n link will view the document, browsing and selecting a new document will \nreplace\n the existing value.", 
+            "title": "Helpers"
+        }, 
+        {
+            "location": "/Front End/Helpers/#ui-helpers", 
+            "text": "PaperTrail provides an extensive suite of Handlebar helpers and block extension that make building custom interfaces simple", 
+            "title": "UI Helpers"
+        }, 
+        {
+            "location": "/Front End/Helpers/#document-tables", 
+            "text": "The  {{#document_table}}  helper will render a table based on a PQL query specified in it's body, the PQL can use standard Handlebars syntax and helpers to replace parameters: e.g.  {{#document_table}}\n        SELECT party_name, contact_name, email, type_service, communicated FROM 'Division/Cabinet' WHERE formNo = '{{indexes.formNo}}'\n{{/document_table}}  Would render as:   Actions can be added to each row using  {{#action}}  e.g.   {{#actions}}\n   {{{action docId  delete_file  icon='trash' label= Delete  refresh=true class= btn-inline }}}\n{{/actions}}  Which would render as:     Headers can be added using  {{#header}}  e.g.   {{#header}}\n   {{{create 'Division/Cabinet' formNo=indexes.formNo label= Add  }}}\n{{/header}}  Which renders as:", 
+            "title": "Document tables"
+        }, 
+        {
+            "location": "/Front End/Helpers/#example-document-table-with-header-and-actions-per-row", 
+            "text": "{{#document_table}}\n    {{#header}}\n       {{{create 'Division/Cabinet' formNo=indexes.formNo }}}\n    {{/header}}\n\n    {{#actions}}\n      {{{action docId  delete_file  icon='trash' label= Delete  refresh=true class= btn-inline }}}\n    {{/actions}}\n\n    SELECT party_name, contact_name, email, type_service, communicated FROM 'Division/Cabinet' WHERE formNo = '{{indexes.formNo}}'\n{{/document_table}}", 
+            "title": "Example: Document table with header and actions per row"
+        }, 
+        {
+            "location": "/Front End/Helpers/#document-links", 
+            "text": "{{#document_list}}  is used for rendering only a list of document links e.g.  {{#document_list view=true}}\n        SELECT * FROM 'Division/Cabinet WHERE formNo = '{{indexes.formNo}}'\n        {{#after}} br/ {{/after}}\n{{/document_list}}  Will render a list, when clicking on the link it will redirect the user to that document   The default behaviour can be changed to view instead of redirect using  {{#document_list view=true}}  {{#before}}   blocks are rendered just before the link  {{#after}}   blocks are rendered after the link and are commonly used to switch from a horizontal to verical list.    {{#header}}  and  {{#footer}}  are also supported so it can be combined with an upload action:  {{#document_list view=true}}\n    SELECT * FROM 'Division/Cabinet' WHERE formNo = '{{ndexes.formNo}}'\n    {{#after}} br/ {{/after}}\n    {{#footer}}\n        {{{upload 'Division/Cabinet' formNo=@root.indexes.formNo class= btn-inline pr5  }}}\n    {{/footer}}\n{{/document_list}}  Which renders as:", 
+            "title": "Document Links"
+        }, 
+        {
+            "location": "/Front End/Helpers/#action-button", 
+            "text": "Action buttons can be added using  {{{action}}}   Note that triple  {{{  unlink block helpers like  {{#document_table}} ,  action returns HTML which needs to be escaped using the standard Handlebars syntax of 3 braces:   e.g. to render a Comment button:   {{{action docId 'add_note'}}}", 
+            "title": "Action Button"
+        }, 
+        {
+            "location": "/Front End/Helpers/#upload-button", 
+            "text": "To render an upload button:       {{{upload 'Division/cabinet' formNo=indexes.formNo}}}  Standard styling can be applied to render a small upload icon only like this:    {{{upload 'Division/cabinet' formNo=indexes.formNo  class='btn-inline' label= nbsp; }}}", 
+            "title": "Upload Button"
+        }, 
+        {
+            "location": "/Front End/Helpers/#linked-document", 
+            "text": "A linked document is a 1-many association with another document for example many  Invoices  can be linked to a single  Purchase Order .\nOn the invoice side of the association you can create a component that will allow the user to select a document from a document picker, the selected document's docId will then indexed in the specified index: e.g.  To render a browse button, to select and add a new link:      {{{linked_docid this  po_docId  class= btn-inline  }}}  When the user clicks on it and selects a document e.g.  Purchase Order #123.pdf  it will change to    Clicking the  Purchase Order #123.pdf  link will view the document, browsing and selecting a new document will  replace  the existing value.", 
+            "title": "Linked Document"
+        }, 
+        {
+            "location": "/Front End/Plugins/", 
+            "text": "Portal Plugins\n\n\nStart by creating a Layout with the base code:  \n\n\nUI.plugin (function() {  \n\u00a0\u00a0\u00a0\u00a0console.log ('Custom plugin 2.1.8');  \n});\n\n\n\n\nAnd then deploy it via \nnpm run build\n\nIn development mode use \nnpm run watch\n have changes automatically deployed on file save\n\n\nCustomizing the header\n\n\nvar toolbar = UI.header.addToolbar('Help');  \ntoolbar.add('Help', 'help_action')  \ntoolbar.add('Intranet', 'intranet_action')\n\n\n\n\nOr to add a tool under the tool menu:  \n\n\nUI.header.addTool('Help', 'help_action');\n\n\n\n\nCustomizing the sidebar\n\n\nvar menu = UI.sidebar.addMenu('Menu 1', 'icon');  \nmenu.add('Shortcut', function() {console.log('onclick')});\nmenu.add('Shortcut 1','#node/Node Path/division');  \nmenu.add('Shortcut 2','#node/Node Path/division', 'folder');  \n\nUI.sidebar.addText('\nb\nHellow World\n/b\np\nJust some brief text in the sidebar to get you started\np/\n');\n\n\n\n\nCustomizing the Document View Tabs\n\n\nTabs are customized using Handlerbars (.hbs) templates\n\nto change the default from DocumentView to something else:  \n\n\nrouter.doc.template = 'Simple';\n\n\n\n\nTo change the template for documents in a specific node:  \n\n\nUI.addTemplate( {  \n\u00a0\u00a0\u00a0\u00a0node: 'Division/cabinet/node', // the node for which this template should be used  \n\u00a0\u00a0\u00a0\u00a0template: 'NewTemplateName' // the name of the Handlerbars template  \n});\n\n\n\n\nTo add a new tab:  \n\n\nUI.addTab({  \n\u00a0\u00a0\u00a0\u00a0title: 'Tab Name', // can include HTML for icons  \n    name: 'newtab', // the name under which the model data will be placed for use in the template  \n\u00a0 \u00a0 template: 'NewTab.hbs', // the Handlebars template to use to render the contents of the tab  \n\u00a0 \u00a0 filter: function(doc) {return true}, //  gets called to check wether to show the tab or not  \n\u00a0 \u00a0 load: function() {return this.getHistory() } // a function that gets called when the tab is clicked -  \n\u00a0 \u00a0 \u00a0//used to load additional data and/or inject new values for the template to render  \n})\n\n\n\n\nAdding an Upload Button\n\n\nYou can add a button that will upload a document to a specific node with preset indexes, using the: following:\u00a0\n\n\ndiv class=\ncol-md-4\n  \n\u00a0 \nbutton class=\nbtn btn-default light\n\u00a0  \n\u00a0 \u00a0\u00a0data-upload=\n/temp/file\n\u00a0  \n\u00a0 \u00a0\u00a0data-action=\nupload_direct\n  \n\u00a0 \u00a0 data-node=\nSupprting Documents/\n\u00a0 \n!-- Required --\n  \n\u00a0 \u00a0 data-index.formNo=\n{{formNo}}\n\u00a0  \n\u00a0 \u00a0 data-index.doc_type=\nDoc Type 1\n  \n\u00a0 \u00a0 data-toggle=\nbutton\n \n  \n\u00a0 \u00a0 \u00a0 \u00a0\nspan class=\nicon-upload\n \n/span\n Upload Supporting Document  \n\u00a0 \u00a0\n/button\n  \n\n/div\n\n\n\n\n\ndata-node\n is a required path to the node to place the upload document\n\n\ndata-index.[index name]\nis one or more custom indexes to set on the node  \n\n\nThe button must be placed inside a div to properly register an upload handler\n\n\n\nThere are 3 types of data-action that can be used for upload handlers:  \n\n\nupload_direct\n will prompt the user to select a file and then import the document immediately\n\n\nupload\n will prompt for a file and then allow the user to index the document according to the destination node\n\n\ncreate\n will create an Item instead of prompting for a file\u00a0\n\ncreate_direct\n will prompt for indexes and then create an Item \n\n\nUploading and appending to a list\n\n\nFirst create a new tab to contain the list:\n\n\nUI.addTab({  \n    title: 'Supporting Docs',\n    template: 'Supporting.hbs',\n    load: function() {return PQL.query(\nSELECT * FROM 'Node/Supporting' WHERE formNo = '\n + this.docId + \n'\n) }\n})\n\n\n\n\n\nAnd the template:\n\n\ndiv class=\nrow\n \n\n    \ntopbar-left\n/topbar-left\n\n    \ntopbar-right\n\n                \ndiv class=\nbtn-group\n\n                    \nbutton class=\nbtn btn-default  btn-sm light upload\n data-upload=\n/temp/file\n\n                            data-action=\nupload_direct\n\n                            data-append=\nsupporting\n\n                            data-node=\nNode/Supporting\n\n                            data-toggle=\nbutton\n\n                        \nspan class=\nicon-upload\n \n/span\n Upload\n                    \n/button\n\n                \n/div\n\n    \n/topbar-right\n\n\n/div\n\n\n\ncontent-center\n\n    {{\n grid supporting}}\n\n/content-center\n\n\n\n\n\n\ndata-append\n will append the uploaded document or item to  the specified document list\n\n\n{{\n grid supporting}}\n will render the supporting document list\n\n\nEnhancing the Document Model\n\n\nIf you need to add fields and methods that need to be available in templates you can add a document filter - The filter will be called just before being returned and can update, add or delete indexes and fields.  \n\n\nPaperTrail.addDocumentFilter(doc =\n {  \n\u00a0\u00a0\u00a0\u00a0doc.indexes.total = parseInt(doc.get('unit')) * parseInt(doc.get('price'));  \n\u00a0 \u00a0 return doc;  \n});\n\n\n\n\naddDocumentFilter()\n can also return a promise so you can pull in data if necessary eg. \n\n\nPaperTrail.addDocumentFilter(doc =\n {  \n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0// populate an approvers array based on approver_0-4 indexes and corresponding audits by those users  \n\u00a0 \u00a0 \u00a0 \u00a0 return doc.getHistory().then((history) =\n {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 doc.approvers = [];  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 _.each(['0', '1', '2', '3'], (it) =\n {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 if (is.empty(doc.get('approver_' + it))) {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 return;  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 }  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 var approver = {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 approver: doc.get('approver_' + it),  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 status: 'Pending',  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 comment: ''  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 };  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 var audit = _.find(doc.history, (it) =\n {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 var type = it.auditType.toLowerCase();  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 return it.createdBy == approver.approver \n (type.contains('sign') || type.contains('approve') || type.contains('reject') || type.contains('rework'));  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 });  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 if (audit != null) {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 approver.status = audit.auditType;  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 approver.comment = audit.audit;  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 }  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 doc.approvers.push(approver)  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 });  \n\u00a0 \u00a0 \u00a0 \u00a0 })  \n\n\u00a0 \u00a0 });  \n})", 
+            "title": "Plugins"
+        }, 
+        {
+            "location": "/Front End/Plugins/#portal-plugins", 
+            "text": "Start by creating a Layout with the base code:    UI.plugin (function() {  \n\u00a0\u00a0\u00a0\u00a0console.log ('Custom plugin 2.1.8');  \n});  And then deploy it via  npm run build \nIn development mode use  npm run watch  have changes automatically deployed on file save", 
+            "title": "Portal Plugins"
+        }, 
+        {
+            "location": "/Front End/Plugins/#customizing-the-header", 
+            "text": "var toolbar = UI.header.addToolbar('Help');  \ntoolbar.add('Help', 'help_action')  \ntoolbar.add('Intranet', 'intranet_action')  Or to add a tool under the tool menu:    UI.header.addTool('Help', 'help_action');", 
+            "title": "Customizing the header"
+        }, 
+        {
+            "location": "/Front End/Plugins/#customizing-the-sidebar", 
+            "text": "var menu = UI.sidebar.addMenu('Menu 1', 'icon');  \nmenu.add('Shortcut', function() {console.log('onclick')});\nmenu.add('Shortcut 1','#node/Node Path/division');  \nmenu.add('Shortcut 2','#node/Node Path/division', 'folder');  \n\nUI.sidebar.addText(' b Hellow World /b p Just some brief text in the sidebar to get you started p/ ');", 
+            "title": "Customizing the sidebar"
+        }, 
+        {
+            "location": "/Front End/Plugins/#customizing-the-document-view-tabs", 
+            "text": "Tabs are customized using Handlerbars (.hbs) templates \nto change the default from DocumentView to something else:    router.doc.template = 'Simple';  To change the template for documents in a specific node:    UI.addTemplate( {  \n\u00a0\u00a0\u00a0\u00a0node: 'Division/cabinet/node', // the node for which this template should be used  \n\u00a0\u00a0\u00a0\u00a0template: 'NewTemplateName' // the name of the Handlerbars template  \n});  To add a new tab:    UI.addTab({  \n\u00a0\u00a0\u00a0\u00a0title: 'Tab Name', // can include HTML for icons  \n    name: 'newtab', // the name under which the model data will be placed for use in the template  \n\u00a0 \u00a0 template: 'NewTab.hbs', // the Handlebars template to use to render the contents of the tab  \n\u00a0 \u00a0 filter: function(doc) {return true}, //  gets called to check wether to show the tab or not  \n\u00a0 \u00a0 load: function() {return this.getHistory() } // a function that gets called when the tab is clicked -  \n\u00a0 \u00a0 \u00a0//used to load additional data and/or inject new values for the template to render  \n})", 
+            "title": "Customizing the Document View Tabs"
+        }, 
+        {
+            "location": "/Front End/Plugins/#adding-an-upload-button", 
+            "text": "You can add a button that will upload a document to a specific node with preset indexes, using the: following:\u00a0  div class= col-md-4   \n\u00a0  button class= btn btn-default light \u00a0  \n\u00a0 \u00a0\u00a0data-upload= /temp/file \u00a0  \n\u00a0 \u00a0\u00a0data-action= upload_direct   \n\u00a0 \u00a0 data-node= Supprting Documents/ \u00a0  !-- Required --   \n\u00a0 \u00a0 data-index.formNo= {{formNo}} \u00a0  \n\u00a0 \u00a0 data-index.doc_type= Doc Type 1   \n\u00a0 \u00a0 data-toggle= button     \n\u00a0 \u00a0 \u00a0 \u00a0 span class= icon-upload   /span  Upload Supporting Document  \n\u00a0 \u00a0 /button    /div   data-node  is a required path to the node to place the upload document  data-index.[index name] is one or more custom indexes to set on the node    The button must be placed inside a div to properly register an upload handler  There are 3 types of data-action that can be used for upload handlers:    upload_direct  will prompt the user to select a file and then import the document immediately  upload  will prompt for a file and then allow the user to index the document according to the destination node  create  will create an Item instead of prompting for a file\u00a0 create_direct  will prompt for indexes and then create an Item", 
+            "title": "Adding an Upload Button"
+        }, 
+        {
+            "location": "/Front End/Plugins/#uploading-and-appending-to-a-list", 
+            "text": "First create a new tab to contain the list:  UI.addTab({  \n    title: 'Supporting Docs',\n    template: 'Supporting.hbs',\n    load: function() {return PQL.query( SELECT * FROM 'Node/Supporting' WHERE formNo = '  + this.docId +  ' ) }\n})  And the template:  div class= row   \n     topbar-left /topbar-left \n     topbar-right \n                 div class= btn-group \n                     button class= btn btn-default  btn-sm light upload  data-upload= /temp/file \n                            data-action= upload_direct \n                            data-append= supporting \n                            data-node= Node/Supporting \n                            data-toggle= button \n                         span class= icon-upload   /span  Upload\n                     /button \n                 /div \n     /topbar-right  /div  content-center \n    {{  grid supporting}} /content-center   data-append  will append the uploaded document or item to  the specified document list  {{  grid supporting}}  will render the supporting document list", 
+            "title": "Uploading and appending to a list"
+        }, 
+        {
+            "location": "/Front End/Plugins/#enhancing-the-document-model", 
+            "text": "If you need to add fields and methods that need to be available in templates you can add a document filter - The filter will be called just before being returned and can update, add or delete indexes and fields.    PaperTrail.addDocumentFilter(doc =  {  \n\u00a0\u00a0\u00a0\u00a0doc.indexes.total = parseInt(doc.get('unit')) * parseInt(doc.get('price'));  \n\u00a0 \u00a0 return doc;  \n});  addDocumentFilter()  can also return a promise so you can pull in data if necessary eg.   PaperTrail.addDocumentFilter(doc =  {  \n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0// populate an approvers array based on approver_0-4 indexes and corresponding audits by those users  \n\u00a0 \u00a0 \u00a0 \u00a0 return doc.getHistory().then((history) =  {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 doc.approvers = [];  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 _.each(['0', '1', '2', '3'], (it) =  {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 if (is.empty(doc.get('approver_' + it))) {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 return;  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 }  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 var approver = {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 approver: doc.get('approver_' + it),  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 status: 'Pending',  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 comment: ''  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 };  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 var audit = _.find(doc.history, (it) =  {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 var type = it.auditType.toLowerCase();  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 return it.createdBy == approver.approver   (type.contains('sign') || type.contains('approve') || type.contains('reject') || type.contains('rework'));  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 });  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 if (audit != null) {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 approver.status = audit.auditType;  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 approver.comment = audit.audit;  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 }  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 doc.approvers.push(approver)  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 });  \n\u00a0 \u00a0 \u00a0 \u00a0 })  \n\n\u00a0 \u00a0 });  \n})", 
+            "title": "Enhancing the Document Model"
+        }, 
+        {
+            "location": "/Front End/Themes/", 
+            "text": "", 
+            "title": "Themes"
+        }, 
+        {
+            "location": "/References/Deploying/", 
+            "text": "Data packs\n\n\nData packs allow to import documents (templates, reports, forms, workflows, etc.) in bulk.\n\nThis feature is used to pre-populate a Papertrail instance with system documents.\n\n\nCreating a new data pack\n\n\nTo create a new data pack, do the following:\n\n\n\n\nCreate a directory for your package;\n\n\nPut your directories \n files there - they would correspond to nodes and documents, accordingly;\n\n\nCompress the container directory with ZIP;\n\n\nPut the resulting zip file into \nplugins/\n directory under the Papertrail instance root dir (e.g., \n/opt/papertrail/plugins\n).\n\n\n\n\nDefault seed package\n\n\nThe default system seed files set is contained in a \ninstallation/seedfiles/\n directory and can be built with \nant -f build-jar.xml seedfiles\n command (that is also automatically deploys it to the default instance - \nwork\n dir).\n\n\nImplementation details\n\n\nThe seed files functionality is implemented by \nDataPackImporter\n that listens to file system notifications on the \nplugins/\n directory.\nI", 
+            "title": "Deploying"
+        }, 
+        {
+            "location": "/References/Deploying/#data-packs", 
+            "text": "Data packs allow to import documents (templates, reports, forms, workflows, etc.) in bulk. \nThis feature is used to pre-populate a Papertrail instance with system documents.", 
+            "title": "Data packs"
+        }, 
+        {
+            "location": "/References/Deploying/#creating-a-new-data-pack", 
+            "text": "To create a new data pack, do the following:   Create a directory for your package;  Put your directories   files there - they would correspond to nodes and documents, accordingly;  Compress the container directory with ZIP;  Put the resulting zip file into  plugins/  directory under the Papertrail instance root dir (e.g.,  /opt/papertrail/plugins ).", 
+            "title": "Creating a new data pack"
+        }, 
+        {
+            "location": "/References/Deploying/#default-seed-package", 
+            "text": "The default system seed files set is contained in a  installation/seedfiles/  directory and can be built with  ant -f build-jar.xml seedfiles  command (that is also automatically deploys it to the default instance -  work  dir).", 
+            "title": "Default seed package"
+        }, 
+        {
+            "location": "/References/Deploying/#implementation-details", 
+            "text": "The seed files functionality is implemented by  DataPackImporter  that listens to file system notifications on the  plugins/  directory.\nI", 
+            "title": "Implementation details"
+        }, 
+        {
+            "location": "/References/Document Properties/", 
+            "text": "Document Properties\n\n\nDocument properties are available to use in:\n\n\n\n\nNode rule filters\n\n\nWorkflow filters\n\n\nStandard Expressions e.g. the body field in a sendEmail rule\n\n\n\n\n\n\n\n\n\n\n\n\n\nDocument Property (index)\n\n\n\nGroovy Description Data Type\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndocId\n\n\n\nString\n\n\n\nThe document unique identifier. Formatted as a PaperTrail document ID.\n\n\n\n\n\n\n\n\n\ncreatedDate\n\n\n\nDate\n\n\n\nThe date that the document was created.\n\n\n\n\n\n\n\n\n\nfilename\n\n\n\nString\n\n\n\nThe filename of the document including the extension.\n\n\n\n\n\n\n\n\n\nlastModified\n\n\n\nDate\n\n\n\nThe date that the document was last modified. Can be empty.\n\n\n\n\n\n\n\n\n\ncreatedBy\n\n\n\nString\n\n\n\nThe name of the user who created the document.\n\n\n\n\n\n\n\n\n\ndispatchedBy\n\n\n\nString\n\n\n\nFor asynchronous rules, the user whose action triggered the event.  \nRefer also to sessionUser.\n\n\n\n\n\n\n\n\n\next\n\n\n\nString\n\n\n\nA document extension suffix supported by PaperTrail. Does not contain the leading dot.\n\n\n\n\n\n\n\n\n\nip\n\n\n\nString\n\n\n\nThe IP address of the user who did the action that triggered the event.\n\n\n\n\n\n\n\n\n\nname\n\n\n\nString\n\n\n\nThe filename of the document excluding the extension.\n\n\n\n\n\n\n\n\n\nsize\n\n\n\nLong\n\n\n\nThe size in bytes. Use this for a numeric comparison, for example:  \nsize > 100000\n\n\n\n\n\n\n\n\n\nsessionUser\n\n\n\nString\n\n\n\nFor synchronous rules, the current user. For asynchronous rules, System. Refer also to dispatchedBy.\n\n\n\n\n\n\n\n\n\nstatus\n\n\n\nString\n\n\n\nThe status of the document. Possible values are Filed, Current, Diarized, and Out.\n\n\n\n\n\n\n\n\n\nsizeFormatted\n\n\n\nString\n\n\n\nFormatted as bytes, for example, 1 KB, 5 MB, 1 GB\\n\ufffc\ufffcinstead of as an integer such as 14328490234.\n\n\n\n\n\n\n\n\n\nvisibility\n\n\n\nString\n\n\n\nWho is permitted see the document. Valid values are Public, Private and Confidential.\n\n\n\n\n\n\n\n\n\ntitle\n\n\n\nString\n\n\n\nTitle\n\n\n\n\n\n\n\n\n\nsubject\n\n\n\nString\n\n\n\nSubject\n\n\n\n\n\n\n\n\n\nversion\n\n\n\nString\n\n\n\nA document version number, for example, 2.1\\. Can be empty.\n\n\n\n\n\n\n\n\n\n\n\n\nString\n\n\n\nAn index that is added under Node Management > Node > Index.\n\n\n\n\n\n\n\n\n\n\n\n\nWritable Properties\n\n\nSome document properties are also editable, but most are read only.\n\n\n\n\nfilename\n\n\nvisibility\n\n\ntitle\n\n\nsubject\n\n\n{custom_index}\n\n\n\n\nto set a writeable property you can use a script:  \n\n\ndoc.metadata().set(\"title\", \"a new title\")\n\n\nOr a updateIndex rule  \n\n\ntitle=new title\n  \n\n\nor using the HTTP API:  \n\n\ncurl -x POST http://host/public/indexes/\ndocId\n/?title= a new title\n  \n\n\nDocument properties can also be updated via other mechanism for updating indexes including:\n\n\n\n\nImport and Sync\n\n\n.TXT files\n\n\n.XML indexes\n\n\n\n\nSpecial properties\n\n\nDue to the large number of places indexes/properties can be updated, and it being the single most common point of integration between systems their are a few special properties that trigger actions they are prefixed with \n_\n not be confused with normal properties that relate to metadata only.  \n\n\n\n\n\n\n\n\n\n\n\nSpecial Property\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n_audit\n\n\n\nCreates a new audit history event on the document\n\n\n\n\n\n\n\n\n\n_status\n\n\n\n_status=Filed will remove all current users of a document  \n_status=Archive will archive the document\n\n\n\n\n\n\n\n\n\n_event\n\n\n\nDispatches a new Document event\n\n\n\n\n\n\n\n\n\nuser\u00a0\u00a0\u00a0\u00a0\n\n\n\nAllocates a user to the document\n\n\n\n\n\n\n\n\n\nowner \u00a0 \u00a0\n\n\n\nAssigned ownership to the user\n\n\n\n\n\n\n\n\n\nnode\n\n\n\nMoves the document to the specified node\n\n\n\n\n\n\n\n\n\nvisibility\n\n\n\nChanges the visibility of the document\n\n\n\n\n\n\n\n\n\n\n\n\nArithmetic Operations\n\n\nMost properties and all custom index values are in String format, in order to use arithmetic in filters etc.. you need to first convert them to a Number type. e.g.\n\n\nspan style=\"line-height: 20.7999992370605px;\"\ncustomNumberIndex.asInt() \n 10000\n/span\n  \n\n\nSee \nGroovy GDK String.asType()\n\n\nRounding\n\n\nIndexName=${(Double.valueOf(IndexName) * 1.14).round(2)}\n\n\nDates\n\n\nFor information about how to format dates, refer to \u00a0\nSimpleDateFormat", 
+            "title": "Document Properties"
+        }, 
+        {
+            "location": "/References/Document Properties/#document-properties", 
+            "text": "Document properties are available to use in:   Node rule filters  Workflow filters  Standard Expressions e.g. the body field in a sendEmail rule      Document Property (index)  Groovy Description Data Type  Description      docId  String  The document unique identifier. Formatted as a PaperTrail document ID.    createdDate  Date  The date that the document was created.    filename  String  The filename of the document including the extension.    lastModified  Date  The date that the document was last modified. Can be empty.    createdBy  String  The name of the user who created the document.    dispatchedBy  String  For asynchronous rules, the user whose action triggered the event.  \nRefer also to sessionUser.    ext  String  A document extension suffix supported by PaperTrail. Does not contain the leading dot.    ip  String  The IP address of the user who did the action that triggered the event.    name  String  The filename of the document excluding the extension.    size  Long  The size in bytes. Use this for a numeric comparison, for example:  \nsize > 100000    sessionUser  String  For synchronous rules, the current user. For asynchronous rules, System. Refer also to dispatchedBy.    status  String  The status of the document. Possible values are Filed, Current, Diarized, and Out.    sizeFormatted  String  Formatted as bytes, for example, 1 KB, 5 MB, 1 GB\\n\ufffc\ufffcinstead of as an integer such as 14328490234.    visibility  String  Who is permitted see the document. Valid values are Public, Private and Confidential.    title  String  Title    subject  String  Subject    version  String  A document version number, for example, 2.1\\. Can be empty.     String  An index that is added under Node Management > Node > Index.", 
+            "title": "Document Properties"
+        }, 
+        {
+            "location": "/References/Document Properties/#writable-properties", 
+            "text": "Some document properties are also editable, but most are read only.   filename  visibility  title  subject  {custom_index}   to set a writeable property you can use a script:    doc.metadata().set(\"title\", \"a new title\")  Or a updateIndex rule    title=new title     or using the HTTP API:    curl -x POST http://host/public/indexes/ docId /?title= a new title     Document properties can also be updated via other mechanism for updating indexes including:   Import and Sync  .TXT files  .XML indexes", 
+            "title": "Writable Properties"
+        }, 
+        {
+            "location": "/References/Document Properties/#special-properties", 
+            "text": "Due to the large number of places indexes/properties can be updated, and it being the single most common point of integration between systems their are a few special properties that trigger actions they are prefixed with  _  not be confused with normal properties that relate to metadata only.       Special Property  Description      _audit  Creates a new audit history event on the document    _status  _status=Filed will remove all current users of a document  \n_status=Archive will archive the document    _event  Dispatches a new Document event    user\u00a0\u00a0\u00a0\u00a0  Allocates a user to the document    owner \u00a0 \u00a0  Assigned ownership to the user    node  Moves the document to the specified node    visibility  Changes the visibility of the document", 
+            "title": "Special properties"
+        }, 
+        {
+            "location": "/References/Document Properties/#arithmetic-operations", 
+            "text": "Most properties and all custom index values are in String format, in order to use arithmetic in filters etc.. you need to first convert them to a Number type. e.g.  span style=\"line-height: 20.7999992370605px;\" customNumberIndex.asInt()   10000 /span     See  Groovy GDK String.asType()", 
+            "title": "Arithmetic Operations"
+        }, 
+        {
+            "location": "/References/Document Properties/#rounding", 
+            "text": "IndexName=${(Double.valueOf(IndexName) * 1.14).round(2)}", 
+            "title": "Rounding"
+        }, 
+        {
+            "location": "/References/Document Properties/#dates", 
+            "text": "For information about how to format dates, refer to \u00a0 SimpleDateFormat", 
+            "title": "Dates"
+        }, 
+        {
+            "location": "/References/Javadocs/", 
+            "text": "See \nJavaDocs", 
+            "title": "Javadocs"
+        }, 
+        {
+            "location": "/References/PQL/", 
+            "text": "PQL\n\n\nPQL is an SQL-like language that can be used for quering and filtering data in PaperTrail it can be used in the following places:\nAnywhere where a query expression is used e.g. Advanced Search Reports, Queues, Scheduled Rules, Document linking etc..\nAs an alternative to groovy based expressions on node rule filters\ne.g. instead of:\n\nfilename == 'filename \n a == 'b'\n\nUse:\n\n\nWHERE filename = 'filename' AND a = 'b'\n\n\n\n\nPQL filters are fully case-insensitive and null safe so instead of: \nindex1 != null \n index1.toLowerCase() == 'abc'\n\nUse:\n\nWHERE index1 = 'abc'\n\n\nSyntax\n\n\nThe \nSELECT\n clause MUST contain exactly one of the following:\nA comma-separated list of one or more column names (node or document index names).\nYou can use aliases to rename returned columns, e.g. column AS alias.\nIf an explicit column list is provided: Only the columns listed will be returned and only in the order supplied\n\n\n*\n : All standard indexes and any custom indexes will be returned in the default order\n\n\n**\n : Only custom indexes will be returned \nOne or more calls to aggregate functions.\nAggregate functions produce a single row output from multiple rows in a group.\n\n\nColumn Expressions\n\n\nGroovy expressions can be used to format data returned e.g. \n\n\nSELECT '${name[0]}' as Initial FROM Clients\n\n\nMultiple columns can also be referenced:\n\nSELECT '${LastName}, ${FirstName}' as FullName FROM Clients\n \n\n\nAs well as arithmetic on Number and Double indexes:\n\nSELECT '${total + vat}' as GrandTotal FROM 'Sales'\n\n\nFROM Clause\n\n\nThe FROM clause identifies which Virtual Table (Node) the query will be run against, as described in the previous section.\n\n\nThe FROM clause MUST contain the full path of a node, and MUST be single quoted if there are any spaces .e.g\n\n\nFROM parent/division\n\n\nFROM 'parent/sub folder/folder'\n\n\nWHERE\n\n\nThis clause identifies the constraints that rows MUST satisfy to be considered a result for the query.\n\n\nAll column names MUST be valid \u201cqueryName\u201d or their aliased values for properties that are defined as \u201cqueryable\u201d in the Object-Type(s) whose Virtual Tables are listed in the FROM clause.\n\n\nProperties are defined to not support a \u201cnull\u201d value, therefore the \n MUST be interpreted as testing the not set or set state of the specified property.\n\n\nComparisons permitted in the WHERE clause.\n\n\nPQL supports the following predicates:\n\n\n\n\n= (equals)  \n\n\n> (bigger than, after)  \n\n\n (smaller than, before)  \n\n\n\n\n\n\nNote: Bigger than / Less than and end equal to (\n=, \n=) are not supported\n\n\n\n\n\n\ncontains\n\n\nstartsWith\n\n\n\n\nendWith\nBETWEEN and NOT BETWEEN predicates to compare on ranges\ne.g. column BETWEEN a AND b, is equivalent to column \n= a AND column \n= b \n\n\n\n\n\n\nIN  \n\n\n\n\nLIKE   \n\n\nIS NULL  \n\n\nIS NOT NULL  \n\n\nall_empty  \n\n\ne.g. a filter that matches when all 4 indexes are populated\nWHERE not all_empty (invoice_no,total,date,approved)\n\n\n\n\n\n\nnot all_empty  \n\n\nbefore, after \n\nWHERE createdDate BEFORE '2015-01-01'  \n\n\n\n\nWHERE Expressions\n\n\nExpressions can also be used within WHERE clauses. e.g.\n\n\nSELECT name FROM Customers WHERE '${name[0]}' = 'A'\n\n\nORDER BY\n\n\nThis clause MUST a single column to order by\nAll column names referenced in this clause MUST be valid \u201cqueryName\u201d or alias (either for an aggregate function result or a column).\nOnly columns in the SELECT clause MAY be in the ORDER BY clause.\n\n\nGROUP BY\n\n\nThis clause specifies one or many columns to group by.\n\n\nSupported functions:\n\n\n\n\nCOUNT(column)\n, \nCOUNT(*)\n - returns a number of entries in a group. COUNT(column) skips null values.\n\n\nAVG(column)\n - returns an average value of a column in a group.\n\n\nMIN(column)\n, \nMAX(column)\n - return a minimal or maximal value of a certain column in a group.\n\n\nSUM(column)\n - returns a sum of a column in a group.\nEscaping\n\n\n\n\nRepositories MUST support the escaping of characters using a backslash () in the query statement.  The backslash character () will be used to escape characters within quoted strings in the query as follows:\n\n\n\\\u2019 will represent a single-quote(\u2018) character\n\\ \\ will represent a backslash () character\nWithin a LIKE string, \\% and _ will represent the literal characters % and _, respectively.\nAll other instances of a \\ are errors.\n\n\nVirtual Data Sources\n\n\nFROM '@{VirtualDataSource}\n\n\n@WorkflowHistory\n\n\nThe workflow history virtual data source will return details about the unassigned and human tasks of a one or more documents e.g. \n\n\nSELECT * FROM '@WorkflowHistory' WHERE docId = 1\n\n\n\n\nWill return the following special columns:\n\n\nallocation:\n    The final user allocated\n\ncreatedBy:\n    Who the allocation was created by, Not the creator of the document\n\nposition:\n    The workflow label of the task\n\nduration:\n    The duration of the task e.g. 12 hours\n\nbusinessDuration:\n    The duration of the task while in business hours e.g. 2 hours\n\nstart: \n    The start date of the task\n\nend :\n    The end date of the task\n\ndurationMillis:\n    The duration of the task in milliseconds  \n\n\nAny standard and custom indexes can also be merged into the results by adding them into the column list.\nAny standard search criteria can also be used\n\n\n@Activity\n\n\n@QueueHistory", 
+            "title": "PQL"
+        }, 
+        {
+            "location": "/References/PQL/#pql", 
+            "text": "PQL is an SQL-like language that can be used for quering and filtering data in PaperTrail it can be used in the following places:\nAnywhere where a query expression is used e.g. Advanced Search Reports, Queues, Scheduled Rules, Document linking etc..\nAs an alternative to groovy based expressions on node rule filters\ne.g. instead of: filename == 'filename   a == 'b' \nUse:  WHERE filename = 'filename' AND a = 'b'  PQL filters are fully case-insensitive and null safe so instead of:  index1 != null   index1.toLowerCase() == 'abc' \nUse: WHERE index1 = 'abc'", 
+            "title": "PQL"
+        }, 
+        {
+            "location": "/References/PQL/#syntax", 
+            "text": "The  SELECT  clause MUST contain exactly one of the following:\nA comma-separated list of one or more column names (node or document index names).\nYou can use aliases to rename returned columns, e.g. column AS alias.\nIf an explicit column list is provided: Only the columns listed will be returned and only in the order supplied  *  : All standard indexes and any custom indexes will be returned in the default order  **  : Only custom indexes will be returned \nOne or more calls to aggregate functions.\nAggregate functions produce a single row output from multiple rows in a group.", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/References/PQL/#column-expressions", 
+            "text": "Groovy expressions can be used to format data returned e.g.   SELECT '${name[0]}' as Initial FROM Clients  Multiple columns can also be referenced: SELECT '${LastName}, ${FirstName}' as FullName FROM Clients    As well as arithmetic on Number and Double indexes: SELECT '${total + vat}' as GrandTotal FROM 'Sales'", 
+            "title": "Column Expressions"
+        }, 
+        {
+            "location": "/References/PQL/#from-clause", 
+            "text": "The FROM clause identifies which Virtual Table (Node) the query will be run against, as described in the previous section.  The FROM clause MUST contain the full path of a node, and MUST be single quoted if there are any spaces .e.g  FROM parent/division  FROM 'parent/sub folder/folder'", 
+            "title": "FROM Clause"
+        }, 
+        {
+            "location": "/References/PQL/#where", 
+            "text": "This clause identifies the constraints that rows MUST satisfy to be considered a result for the query.  All column names MUST be valid \u201cqueryName\u201d or their aliased values for properties that are defined as \u201cqueryable\u201d in the Object-Type(s) whose Virtual Tables are listed in the FROM clause.  Properties are defined to not support a \u201cnull\u201d value, therefore the   MUST be interpreted as testing the not set or set state of the specified property.  Comparisons permitted in the WHERE clause.  PQL supports the following predicates:   = (equals)    > (bigger than, after)     (smaller than, before)      Note: Bigger than / Less than and end equal to ( =,  =) are not supported    contains  startsWith   endWith\nBETWEEN and NOT BETWEEN predicates to compare on ranges\ne.g. column BETWEEN a AND b, is equivalent to column  = a AND column  = b     IN     LIKE     IS NULL    IS NOT NULL    all_empty    e.g. a filter that matches when all 4 indexes are populated\nWHERE not all_empty (invoice_no,total,date,approved)    not all_empty    before, after  \nWHERE createdDate BEFORE '2015-01-01'", 
+            "title": "WHERE"
+        }, 
+        {
+            "location": "/References/PQL/#where-expressions", 
+            "text": "Expressions can also be used within WHERE clauses. e.g.  SELECT name FROM Customers WHERE '${name[0]}' = 'A'", 
+            "title": "WHERE Expressions"
+        }, 
+        {
+            "location": "/References/PQL/#order-by", 
+            "text": "This clause MUST a single column to order by\nAll column names referenced in this clause MUST be valid \u201cqueryName\u201d or alias (either for an aggregate function result or a column).\nOnly columns in the SELECT clause MAY be in the ORDER BY clause.", 
+            "title": "ORDER BY"
+        }, 
+        {
+            "location": "/References/PQL/#group-by", 
+            "text": "This clause specifies one or many columns to group by.  Supported functions:   COUNT(column) ,  COUNT(*)  - returns a number of entries in a group. COUNT(column) skips null values.  AVG(column)  - returns an average value of a column in a group.  MIN(column) ,  MAX(column)  - return a minimal or maximal value of a certain column in a group.  SUM(column)  - returns a sum of a column in a group.\nEscaping   Repositories MUST support the escaping of characters using a backslash () in the query statement.  The backslash character () will be used to escape characters within quoted strings in the query as follows:  \\\u2019 will represent a single-quote(\u2018) character\n\\ \\ will represent a backslash () character\nWithin a LIKE string, \\% and _ will represent the literal characters % and _, respectively.\nAll other instances of a \\ are errors.", 
+            "title": "GROUP BY"
+        }, 
+        {
+            "location": "/References/PQL/#virtual-data-sources", 
+            "text": "FROM '@{VirtualDataSource}", 
+            "title": "Virtual Data Sources"
+        }, 
+        {
+            "location": "/References/PQL/#workflowhistory", 
+            "text": "The workflow history virtual data source will return details about the unassigned and human tasks of a one or more documents e.g.   SELECT * FROM '@WorkflowHistory' WHERE docId = 1  Will return the following special columns:  allocation:\n    The final user allocated \ncreatedBy:\n    Who the allocation was created by, Not the creator of the document \nposition:\n    The workflow label of the task \nduration:\n    The duration of the task e.g. 12 hours \nbusinessDuration:\n    The duration of the task while in business hours e.g. 2 hours \nstart: \n    The start date of the task \nend :\n    The end date of the task \ndurationMillis:\n    The duration of the task in milliseconds    Any standard and custom indexes can also be merged into the results by adding them into the column list.\nAny standard search criteria can also be used", 
+            "title": "@WorkflowHistory"
+        }, 
+        {
+            "location": "/References/PQL/#activity", 
+            "text": "", 
+            "title": "@Activity"
+        }, 
+        {
+            "location": "/References/PQL/#queuehistory", 
+            "text": "", 
+            "title": "@QueueHistory"
+        }, 
+        {
+            "location": "/References/esdoc/", 
+            "text": "See \nEgisUI", 
+            "title": "Esdoc"
+        }, 
+        {
+            "location": "/References/tools/", 
+            "text": "Tools\n\n\nsudo pip install git+ssh://git@github.com/egis/papertrail-python-cli.git --upgrade\n\n\n\n\nAnd enter your Sudo password\n\n\nor \n\n\ngit clone git@github.com:egis/papertrail-python-cli.git\ncd papertrail-python-cli\nsudo python setup.py install\n\n\n\n\nThen \npt --help\n\n\nChokidar\n\n\nnpm install chokidar-cli -g\n\n\ncd resources/System/scripts \n chokidar '*.groovy' -c 'pt update_script {path}", 
+            "title": "Tools"
+        }, 
+        {
+            "location": "/References/tools/#tools", 
+            "text": "sudo pip install git+ssh://git@github.com/egis/papertrail-python-cli.git --upgrade  And enter your Sudo password  or   git clone git@github.com:egis/papertrail-python-cli.git\ncd papertrail-python-cli\nsudo python setup.py install  Then  pt --help", 
+            "title": "Tools"
+        }, 
+        {
+            "location": "/References/tools/#chokidar", 
+            "text": "npm install chokidar-cli -g  cd resources/System/scripts   chokidar '*.groovy' -c 'pt update_script {path}", 
+            "title": "Chokidar"
+        }, 
+        {
+            "location": "/Remote/API Explorer/", 
+            "text": "Interactive API Browser\n\n\nDownload \nswagger.war\n and copy it to your \nwebapps\n directory, then naviagte \nhttp://localhost:8080/web/swagger/index.html", 
+            "title": "API Explorer"
+        }, 
+        {
+            "location": "/Remote/API Explorer/#interactive-api-browser", 
+            "text": "Download  swagger.war  and copy it to your  webapps  directory, then naviagte  http://localhost:8080/web/swagger/index.html", 
+            "title": "Interactive API Browser"
+        }, 
+        {
+            "location": "/Remote/Browser/", 
+            "text": "Page Based API\n\n\nThe page based API allows for actions to be shown to logged in and non logged\u00a0in users by creating a URL with a specific format and directing a user to it:  \n\n\n\n\n\n\n\n\n\n\n\nParameter\u00a0\u00a0\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n?\n\u00a0\u00a0\u00a0\u00a0\n\n\n\nA document can be specified as the first value after the ? e.g. ?100  \nAny valid PQL can also be used\u00a0\u00a0\u00a0\u00a0\n\n\n\n\n\n\n\n\n\npage \u00a0\u00a0\n\n\n\nWhat type of page to display can be one of: Preview, Action - defaults to preview\n\n\n\n\n\n\n\n\n\ntoken \u00a0\u00a0\n\n\n\nA security token generated for a user or system or \"guest\" for guest access\n\n\n\n\n\n\n\n\n\naction\n\n\n\nOne of the system actions e.g.\n\n*   add_note\n*   email\n*   submit_template\n*   edit_indexes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPublic submission of forms\n\n\n\n\n\n\n\n\n\n\n\nParam\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\naction\n\n\n\n\"submit_template\"\n\n\n\n\n\n\n\n\n\ntitle\n\n\n\nThe name of the header title to use\n\n\n\n\n\n\n\n\n\n_template\n\n\n\nThe name of the template to use - The template must be have a node path specified\n\n\n\n\n\n\n\n\n\nmetaModel\n\n\n\nThe name of the metaModel that includes the fields to be completed by the user e.g. contact_model\n\n\n\n\n\n\n\n\n\ntoken\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\nguest\n\n\n\n\n\n\n\n\n\n\n\n\n/web/EgisUI/api.html?\npage\n=Action\naction\n=\nsubmit_template\n_template\n=\ncontact_forms\nmetaModel\n=\ncontact_model\ntoken\n=\nguest\n\n\nUpdating indexes of a specific document\n\n\n\n\n\n\n\n\n\n\n\naram\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\naction\n\n\n\n\"edit_indexes\"\n\n\n\n\n\n\n\n\n\ntoken\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\nA security token generated in admin - Guest is not recommended for write access to existing documents\n\n\n\n\n\n\n\n\n\n\n\n\n/web/EgisUI/api.html?5000\npage\n=Action\naction\n=\nedit_indexes\ntoken\n=\n_guest  \n\n\nor via PQL script_  \n\n\n/web/EgisUI/api.html?\nInvoiceNo%3D234\npage\n=Action\naction\n=\nedit_indexes\ntoken\n=\nguest\n\n\n\n\nNote that the PQL query is encoded e.g:  \n\n\nencodeURIComponent('InvoiceNo=1234')", 
+            "title": "Browser"
+        }, 
+        {
+            "location": "/Remote/Browser/#page-based-api", 
+            "text": "The page based API allows for actions to be shown to logged in and non logged\u00a0in users by creating a URL with a specific format and directing a user to it:       Parameter\u00a0\u00a0  Description      ? \u00a0\u00a0\u00a0\u00a0  A document can be specified as the first value after the ? e.g. ?100  \nAny valid PQL can also be used\u00a0\u00a0\u00a0\u00a0    page \u00a0\u00a0  What type of page to display can be one of: Preview, Action - defaults to preview    token \u00a0\u00a0  A security token generated for a user or system or \"guest\" for guest access    action  One of the system actions e.g.\n\n*   add_note\n*   email\n*   submit_template\n*   edit_indexes", 
+            "title": "Page Based API"
+        }, 
+        {
+            "location": "/Remote/Browser/#public-submission-of-forms", 
+            "text": "Param  Description      action  \"submit_template\"    title  The name of the header title to use    _template  The name of the template to use - The template must be have a node path specified    metaModel  The name of the metaModel that includes the fields to be completed by the user e.g. contact_model    token\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  guest     /web/EgisUI/api.html? page =Action action = submit_template _template = contact_forms metaModel = contact_model token = guest", 
+            "title": "Public submission of forms"
+        }, 
+        {
+            "location": "/Remote/Browser/#updating-indexes-of-a-specific-document", 
+            "text": "aram  Description      action  \"edit_indexes\"    token\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  A security token generated in admin - Guest is not recommended for write access to existing documents     /web/EgisUI/api.html?5000 page =Action action = edit_indexes token = _guest    or via PQL script_    /web/EgisUI/api.html? InvoiceNo%3D234 page =Action action = edit_indexes token = guest   Note that the PQL query is encoded e.g:    encodeURIComponent('InvoiceNo=1234')", 
+            "title": "Updating indexes of a specific document"
+        }, 
+        {
+            "location": "/Remote/DOT Net/", 
+            "text": ".NET Remoting Client\n\n\nDownload and add the following references to your project:\n\n\nPapertrailClient.dll\n\n\nlog4net.dll\n\n\nNewtonsoft.Json.dll\n  \n\n\nInitializing the PaperTrail client\n\n\nstring host = \nhttp://hostname:8080\n;\nstring user = \nadmin\n;\nstring password = \npassword\n;\nPaperTrail client = new PaperTrail(host, user, password);\n\n\n\n\nImporting a document\n\n\nFileInfo file = new FileInfo(\ntest.doc\n);\nstring node = \nTestDivision/Cabinet/Folder1\n;\nDictionary\nString,String\n indexes = new Dictionary\nString,String\n();\nindexes.Add(\ncustomIndex1\n, \nvalue1\n);\nindexes.Add(\ncustomIndex2\n, \nvalue2\n);\nstring docId = client.ImportDocument(file, node, indexes);\n\n\n\n\nGetting a document from Papertrail\n\n\nStream stream = client.GetDocument(docId);\nGetting the metadata for a Document.\nDocument document = client.GetDocumentMetadata(docId);\nDebug.Print(document.title);\nDebug.Print(document.indexes[\ncustomIndex1\n]);\n\n\n\n\nChecking out a document\n\n\nclient.Checkout(docId);\n\n\n\n\nChecking in a document\n\n\nFileInfo file = new FileInfo(\ntest-0.2.doc\n);\nstring version = \n0.2\n;\nstring comments = \njust some minor updates to the document\n;\nclient.Checkin(docId, file, version, comments);\n\n\n\n\nUpdating document metatdata/indexes\n\n\nDictionary\nString,String\n indexes = new Dictionary\nString,String\n();\nindexes.Add(\ncustomIndex1\n, \nvalue1_update\n);\nindexes.Add(\ncustomIndex2\n, \nvalue2_update\n);\nclient.UpdateMetadata(docId, indexes);\n\n\n\n\nAll actions internally map to execute method calls, so checkout is equivalent to\n\nclient.Execute(\"checkout\", docId, null);\n\n\nSearching for documents\n\n\nQueryResults results = client.Query(\nTestDivision/Cabinet/*\n)\n    .column(\ndocId\n,\nfilename\n,\ntitle\n,\nsubject\n,\ncreatedDate\n,\ncreatedBy\n)\n    .execute();\nDebug.Print(\nTotal number of docs: \n + results.total);\nforeach (Dictionary\nString,String\n document in results.results.Values) {\n    Debug.Print(document[\ndocId\n]);\n    Debug.Print(document[\nfilename\n]);\n    Debug.Print(document[\ncreatedDate\n]);\n}\n\n\n\n\nFor the syntax of the query \nPQL\n\n\nListing users, groups, routes or contacts (Parties)\n\n\n// list all parties\nclient.QueryParties(\n);\n// list all users\nclient.QueryParties(\n, \nuser\n, null);\n//list all groups and routes\nclient.QueryParties(\n, \ngroup,route\n, null)\n//list only users with access to TestDivision/Cabinet\nclient.QueryParties(\n, \nuser\n, \nTestDivision/Cabinet\n);\n//list all users starting with 'a'\nclient.QueryParties(\na\n);", 
+            "title": "DOT Net"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#net-remoting-client", 
+            "text": "Download and add the following references to your project:  PapertrailClient.dll  log4net.dll  Newtonsoft.Json.dll", 
+            "title": ".NET Remoting Client"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#initializing-the-papertrail-client", 
+            "text": "string host =  http://hostname:8080 ;\nstring user =  admin ;\nstring password =  password ;\nPaperTrail client = new PaperTrail(host, user, password);", 
+            "title": "Initializing the PaperTrail client"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#importing-a-document", 
+            "text": "FileInfo file = new FileInfo( test.doc );\nstring node =  TestDivision/Cabinet/Folder1 ;\nDictionary String,String  indexes = new Dictionary String,String ();\nindexes.Add( customIndex1 ,  value1 );\nindexes.Add( customIndex2 ,  value2 );\nstring docId = client.ImportDocument(file, node, indexes);", 
+            "title": "Importing a document"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#getting-a-document-from-papertrail", 
+            "text": "Stream stream = client.GetDocument(docId);\nGetting the metadata for a Document.\nDocument document = client.GetDocumentMetadata(docId);\nDebug.Print(document.title);\nDebug.Print(document.indexes[ customIndex1 ]);", 
+            "title": "Getting a document from Papertrail"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#checking-out-a-document", 
+            "text": "client.Checkout(docId);", 
+            "title": "Checking out a document"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#checking-in-a-document", 
+            "text": "FileInfo file = new FileInfo( test-0.2.doc );\nstring version =  0.2 ;\nstring comments =  just some minor updates to the document ;\nclient.Checkin(docId, file, version, comments);", 
+            "title": "Checking in a document"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#updating-document-metatdataindexes", 
+            "text": "Dictionary String,String  indexes = new Dictionary String,String ();\nindexes.Add( customIndex1 ,  value1_update );\nindexes.Add( customIndex2 ,  value2_update );\nclient.UpdateMetadata(docId, indexes);  All actions internally map to execute method calls, so checkout is equivalent to client.Execute(\"checkout\", docId, null);", 
+            "title": "Updating document metatdata/indexes"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#searching-for-documents", 
+            "text": "QueryResults results = client.Query( TestDivision/Cabinet/* )\n    .column( docId , filename , title , subject , createdDate , createdBy )\n    .execute();\nDebug.Print( Total number of docs:   + results.total);\nforeach (Dictionary String,String  document in results.results.Values) {\n    Debug.Print(document[ docId ]);\n    Debug.Print(document[ filename ]);\n    Debug.Print(document[ createdDate ]);\n}  For the syntax of the query  PQL", 
+            "title": "Searching for documents"
+        }, 
+        {
+            "location": "/Remote/DOT Net/#listing-users-groups-routes-or-contacts-parties", 
+            "text": "// list all parties\nclient.QueryParties( );\n// list all users\nclient.QueryParties( ,  user , null);\n//list all groups and routes\nclient.QueryParties( ,  group,route , null)\n//list only users with access to TestDivision/Cabinet\nclient.QueryParties( ,  user ,  TestDivision/Cabinet );\n//list all users starting with 'a'\nclient.QueryParties( a );", 
+            "title": "Listing users, groups, routes or contacts (Parties)"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/", 
+            "text": "The HTTP API of PaperTrail allows for external applications to communicate with PaperTrail without any dependencies on a Java Jar, .NET DLL or Web Service WSDL file.\n\n\nTools\n\n\nThese examples are all using the following tools, however any HTTP client can be used:\n\n\ncURL\n\n\njq\n - JSON command line processing tool\n\n\nhttpie\n - User friendly CURL replacement\n\n\nAuthentication Methods\n\n\nGuest Account\n\n\nA guest account can be configured on the PaperTrail server. All HTTP access that does not specify a username and password will use the permissions of the account.\n\n\nA Guest Account is required for viewing documents in a web browser from a 3rd Party application.\n\n\nHTTP Basic Authentication\n\n\nSpecifying a username and password with every request allows the use of permissions of a specific user.\n\n\ncurl -u \"administrator:p\"\n\n\nHTTP Headers\n\n\nSpecifying HTTP headers with every request allows the use of permissions of a specific user.\n\n\ncurl -H \"username:user\" -H \"password:p\"\n\n\nExamples\n\n\n\n\n\n\n\n\n\n\n\nRetrieving a document by docId\n\n\n\n\n\n\nGET: /public/file/`100`/test.doc\n\n\ncurl http://host:8080/public/file/100/test.doc > test.doc\n\n\n\n\n\n\n\n\n\n\nRetrieving a document by path\n\n\n\n\n\n\nGET: /public/file/`Division/cabinet/test.doc`/dummy.doc\n\n\ncurl http://host:8080/public/file/Division/cabinet/test.doc > test.doc\n\n\n\n\n\n\n\n\n\n\nRetrieving an attachment\n\n\n\n\n\n\nGET: /public/file/100/test.doc? `path=attachments/att01.doc`\n\n\ncurl http://host:8080/public/file/Division/cabinet/test.doc?path=attachments/att01.doc > att01.doc\n\n\n\n\n\n\n\n\n\n\nRetrieving a pdf for a document\n\n\n\n\n\n\nGET: /public/file/100/test.pdf? `path=pdf`\n\n\ncurl http://host:8080/public/file/100/test.pdf?path=pdf > test.doc\n\n\n\n\n\n\n\n\n\n\nRetrieving a version of a document\n\n\n\n\n\n\nGET: /public/file/100/test.doc? `path=versions/0.2/source`\n\n\ncurl http://host:8080/public/file/Division/cabinet/test.doc?path=versions/0.2/source > test.doc\n\n\n\n\n\n\n\n\n\n\nRetrieving a document via a query\n\n\n\n\n\n\nGET: /public/file/`invoiceNo=AB123`/test.doc\n\n\ncurl http://host:8080/public/file/invoiceNo=AB123/test.doc > test.doc\n\n\n\n\n\n\n\n\n\n\nImporting a document\n\n\n\n\n\n\nPUT: /public/file/ `Division/cabinet/test.doc`\n\n\ncurl -T c:\\test.doc http://host:8080/public/file/Division/cabinet/test.doc\n\n\n\n\n\n\n\n\n\n\nUpdating a document\n\n\n\n\n\n\nPOST: /public/file/ `Division/cabinet/test.doc`\n\n\ncurl -T c:\\test.doc http://host:8080/public/file/Division/cabinet/test.doc\n\n\n\n\n\n\n\n\n\n\nUpdating a document with new metadata\n\n\n\n\n\n\nPOST: /public/file/indexes/document? `index1=value1`\n\n\ncurl -X POST http://host:8080/public/file/indexes/Division/cabinet/test.doc?index1=value3,index2=value4\n\n\n\n\n\n\n\n\n\n\nDeleting a document\n\n\n\n\n\n\nDELETE: /public/file/100\n\n\ncurl -X DELETE http://host:8080/public/file/Division/cabinet/test.doc\n\n\n\n\n\n\n\n\n\n\nAdding a new node\n\n\n\n\n\n\nPUT: /public/file/node/Division/cabinet\n\n\ncurl -X PUT http://host:8080/public/file/node/Division/cabinet/folder\n\n\n\n\n\n\n\n\n\n\nExecuting an action on a document\n\n\n\n\n\n\nPOST: /action/execute/ `allocate` e.g. allocating a document with a docId 100 to user1\n\n\ncurl -d \"docId=100\" -d \"to=user1\" http://host:8080/action/execute/allocate\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMore\n\n\nSee \nAPI Explorer\n for a complete listing of endpoints and their paramaters", 
+            "title": "HTTP Public API"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/#tools", 
+            "text": "These examples are all using the following tools, however any HTTP client can be used:  cURL  jq  - JSON command line processing tool  httpie  - User friendly CURL replacement", 
+            "title": "Tools"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/#authentication-methods", 
+            "text": "", 
+            "title": "Authentication Methods"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/#guest-account", 
+            "text": "A guest account can be configured on the PaperTrail server. All HTTP access that does not specify a username and password will use the permissions of the account.  A Guest Account is required for viewing documents in a web browser from a 3rd Party application.", 
+            "title": "Guest Account"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/#http-basic-authentication", 
+            "text": "Specifying a username and password with every request allows the use of permissions of a specific user.  curl -u \"administrator:p\"", 
+            "title": "HTTP Basic Authentication"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/#http-headers", 
+            "text": "Specifying HTTP headers with every request allows the use of permissions of a specific user.  curl -H \"username:user\" -H \"password:p\"", 
+            "title": "HTTP Headers"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/#examples", 
+            "text": "Retrieving a document by docId   GET: /public/file/`100`/test.doc curl http://host:8080/public/file/100/test.doc > test.doc    Retrieving a document by path   GET: /public/file/`Division/cabinet/test.doc`/dummy.doc curl http://host:8080/public/file/Division/cabinet/test.doc > test.doc    Retrieving an attachment   GET: /public/file/100/test.doc? `path=attachments/att01.doc` curl http://host:8080/public/file/Division/cabinet/test.doc?path=attachments/att01.doc > att01.doc    Retrieving a pdf for a document   GET: /public/file/100/test.pdf? `path=pdf` curl http://host:8080/public/file/100/test.pdf?path=pdf > test.doc    Retrieving a version of a document   GET: /public/file/100/test.doc? `path=versions/0.2/source` curl http://host:8080/public/file/Division/cabinet/test.doc?path=versions/0.2/source > test.doc    Retrieving a document via a query   GET: /public/file/`invoiceNo=AB123`/test.doc curl http://host:8080/public/file/invoiceNo=AB123/test.doc > test.doc    Importing a document   PUT: /public/file/ `Division/cabinet/test.doc` curl -T c:\\test.doc http://host:8080/public/file/Division/cabinet/test.doc    Updating a document   POST: /public/file/ `Division/cabinet/test.doc` curl -T c:\\test.doc http://host:8080/public/file/Division/cabinet/test.doc    Updating a document with new metadata   POST: /public/file/indexes/document? `index1=value1` curl -X POST http://host:8080/public/file/indexes/Division/cabinet/test.doc?index1=value3,index2=value4    Deleting a document   DELETE: /public/file/100 curl -X DELETE http://host:8080/public/file/Division/cabinet/test.doc    Adding a new node   PUT: /public/file/node/Division/cabinet curl -X PUT http://host:8080/public/file/node/Division/cabinet/folder    Executing an action on a document   POST: /action/execute/ `allocate` e.g. allocating a document with a docId 100 to user1 curl -d \"docId=100\" -d \"to=user1\" http://host:8080/action/execute/allocate", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/Remote/HTTP Public API/#more", 
+            "text": "See  API Explorer  for a complete listing of endpoints and their paramaters", 
+            "title": "More"
+        }, 
+        {
+            "location": "/Remote/Java/", 
+            "text": "Full Remoting Client\n\n\nThe full remoting client provides the same interfaces used for scripting within PaperTrail. The provides the advantage of having the same code being able to used within workflows and scripts, and from 3rd party apps. This however does come at a cost of a large number of dependencies.\n\n\nInstall the full remoting client\n\n\nThe easiesy way of using the remoting client is with \ngradle-build\n and a\n\n\nlib.txt\n containing the following:\n\n\ncommons.txt\npapertrail-api.txt\n\n\n\nand a \nbuild.gradle\n containing:\n\n\nbuildscript {\n    repositories {\n        jcenter()\n        mavenCentral()\n        maven {\n            url \"https://plugins.gradle.org/m2/\"\n        }\n    }\n    dependencies {\n         classpath 'org.codehaus.groovy:groovy-all:2.4.4'\n        classpath \"gradle.plugin.com.egis:gradle-build:2.7\"\n    }\n}\n\next {\n    pkg = 'papetrail-remote-client'\n    libBucket = 'papertrail'\n    libPrefix = \"libs/\"\n}\n\napply plugin: 'idea'\napply plugin: 'java'\napply plugin: 'groovy'\napply plugin: \"com.egis.gradle\"\n\n\n\nInitializing a Remote Session\n\n\n//configure logging levels to reduce console spam\nUtils.setLogLevel(\norg.apache\n, \nINFO\n)\nUtils.setLogLevel(\ncom.egis\n, \nINFO\n)\nUtils.setLogLevel(\ncom.egis.DocumentLogger\n, \nDEBUG\n)\nUtils.setLogLevel(\ncom.egis.remote\n, \nDEBUG\n)\nUtils.setLogLevel(\ncom.egis.utils.http.GET\n, \nINFO\n)\nUtils.setLogLevel(\ncom.egis.utils.http.POST\n, \nINFO\n)\nUtils.setLogLevel(\ncom.zaxxer\n, \nINFO\n)\n\n//use default host settings or retrieve from environment variables\nString host = Utils.def(System.getenv(\nPT_API\n), \nhttp://localhost:8080\n);\nString user = Utils.def(System.getenv(\nPT_API_USER\n), \nadmin\n);\nString pass = Utils.def(System.getenv(\nPT_API_PASS\n), \np\n);\nif (!host.startsWith(\nhttp\n)) {\n    host = \nhttp://\n + host;\n}\n\n//create the session and make it available via Kernel.get(Session.class)\nSession session = new RemoteSessionImpl(host, user, pass);\nKernel.bind(Session.class).toSingleton(session)\n\n\n\n\n\nUsing a Remote Session\n\n\nOnce a remote session is initialized it can be used in the same way the (\nSession\n and \nDocumentModel\n) are used for \nscripting\n\n\n\n\nicon-badge-exclamation:4x:green; Not all methods are supported for remote use, those that don't will throw an IllegalStateException\n\n\n\n\nLightweight Remoting Client\n\n\nPaperTrail-API-1.5.jar\n is a lightweight dependency free PaperTrail client suitable for embedding into opther applications \n\n\nInitializing the PaperTrail client\n\n\nString host = \nhttp://hostname:8080\n;\nString user = \nadmin\n;\nString password = \npassword\n;\nPaperTrail client = new PaperTrail(host, user, password);\n\n\n\n\nImporting a document\n\n\nFile file = new File(\ntest.doc\n);\nString node = \nTestDivision/Cabinet/Folder1\n;\nMap\nString,String\n indexes = new HashMap\nString,String\n();\nindexes.put(\ncustomIndex1\n, \nvalue1\n);\nindexes.put(\ncustomIndex2\n, \nvalue2\n);\nString docId = client.importDocument(file, node, indexes);\n\n\n\n\nGetting a document from Papertrail\n\n\nInputStream stream = client.getDocument(docId);\nGetting the metadata for a Document.\nDocument document = client.getDocumentMetadata(docId);\nSystem.out.println(document.getTitle());\nSystem.out.println(document.getIndexes().get(\ncustomIndex1\n);\nChecking out a document:\nclient.checkout(docId);\nChecking in a document:\nFile file = new File(\ntest-0.2.doc\n);\nString version = \n0.2\n;\nString comments = \njust some minor updates to the document\n;\nclient.checkin(docId, file, version, comments);\n\n\n\n\nUpdating document metatdata/indexes\n\n\nMap\nString,String\n indexes = new HashMap\nString,String\n();\nindexes.put(\ncustomIndex1\n, \nvalue1_update\n);\nindexes.put(\ncustomIndex2\n, \nvalue2_update\n);\nclient.updateMetadata(docId, indexes);\n\n\n\n\nAll actions internally map to execute method calls, so checkout is equivalent to:\nclient.execute(\"checkout\", docId, null);\nOnly a few of the standard actions have been implemented in the Java Wrapper, they rest can be called using the execute method, see \n\n\nSearching for documents\n\n\nString query =\nString columns = ;\nQueryResults results = client.query(\nTestDivision/Cabinet/*\n)\n    .column(\ndocId\n,\nfilename\n,\ntitle\n,\nsubject\n,\ncreatedDate\n,\ncreatedBy\n)\n    .execute();\nSystem.out.println(\nTotal number of docs: \n + results.getTotal());\nfor (Map\nString,String\n document : results.getResults()) {\n    System.out.println(document.get(\ndocId\n);\n    System.out.println(document.get(\nfilename\n);\n    System.out.println(document.get(\ncreatedDate\n);\n}\nFor the syntax of the query see Appendix A, PaperTrail Query Language (PQL)\nListing users, groups, routes or contacts (Parties):\n// list all parties\nclient.queryParties(\n);\n// list all users\nclient.queryParties(\n, \nuser\n, null);\n//list all groups and routes\nclient.queryParties(\n, \ngroup,route\n, null)\n//list only users with access to TestDivision/Cabinet\nclient.queryParties(\n, \nuser\n, \nTestDivision/Cabinet\n);\n//list all users starting with 'a'\nclient.queryParties(\na\n);", 
+            "title": "Java"
+        }, 
+        {
+            "location": "/Remote/Java/#full-remoting-client", 
+            "text": "The full remoting client provides the same interfaces used for scripting within PaperTrail. The provides the advantage of having the same code being able to used within workflows and scripts, and from 3rd party apps. This however does come at a cost of a large number of dependencies.", 
+            "title": "Full Remoting Client"
+        }, 
+        {
+            "location": "/Remote/Java/#install-the-full-remoting-client", 
+            "text": "The easiesy way of using the remoting client is with  gradle-build  and a  lib.txt  containing the following:  commons.txt\npapertrail-api.txt  and a  build.gradle  containing:  buildscript {\n    repositories {\n        jcenter()\n        mavenCentral()\n        maven {\n            url \"https://plugins.gradle.org/m2/\"\n        }\n    }\n    dependencies {\n         classpath 'org.codehaus.groovy:groovy-all:2.4.4'\n        classpath \"gradle.plugin.com.egis:gradle-build:2.7\"\n    }\n}\n\next {\n    pkg = 'papetrail-remote-client'\n    libBucket = 'papertrail'\n    libPrefix = \"libs/\"\n}\n\napply plugin: 'idea'\napply plugin: 'java'\napply plugin: 'groovy'\napply plugin: \"com.egis.gradle\"", 
+            "title": "Install the full remoting client"
+        }, 
+        {
+            "location": "/Remote/Java/#initializing-a-remote-session", 
+            "text": "//configure logging levels to reduce console spam\nUtils.setLogLevel( org.apache ,  INFO )\nUtils.setLogLevel( com.egis ,  INFO )\nUtils.setLogLevel( com.egis.DocumentLogger ,  DEBUG )\nUtils.setLogLevel( com.egis.remote ,  DEBUG )\nUtils.setLogLevel( com.egis.utils.http.GET ,  INFO )\nUtils.setLogLevel( com.egis.utils.http.POST ,  INFO )\nUtils.setLogLevel( com.zaxxer ,  INFO )\n\n//use default host settings or retrieve from environment variables\nString host = Utils.def(System.getenv( PT_API ),  http://localhost:8080 );\nString user = Utils.def(System.getenv( PT_API_USER ),  admin );\nString pass = Utils.def(System.getenv( PT_API_PASS ),  p );\nif (!host.startsWith( http )) {\n    host =  http://  + host;\n}\n\n//create the session and make it available via Kernel.get(Session.class)\nSession session = new RemoteSessionImpl(host, user, pass);\nKernel.bind(Session.class).toSingleton(session)", 
+            "title": "Initializing a Remote Session"
+        }, 
+        {
+            "location": "/Remote/Java/#using-a-remote-session", 
+            "text": "Once a remote session is initialized it can be used in the same way the ( Session  and  DocumentModel ) are used for  scripting   icon-badge-exclamation:4x:green; Not all methods are supported for remote use, those that don't will throw an IllegalStateException", 
+            "title": "Using a Remote Session"
+        }, 
+        {
+            "location": "/Remote/Java/#lightweight-remoting-client", 
+            "text": "PaperTrail-API-1.5.jar  is a lightweight dependency free PaperTrail client suitable for embedding into opther applications", 
+            "title": "Lightweight Remoting Client"
+        }, 
+        {
+            "location": "/Remote/Java/#initializing-the-papertrail-client", 
+            "text": "String host =  http://hostname:8080 ;\nString user =  admin ;\nString password =  password ;\nPaperTrail client = new PaperTrail(host, user, password);", 
+            "title": "Initializing the PaperTrail client"
+        }, 
+        {
+            "location": "/Remote/Java/#importing-a-document", 
+            "text": "File file = new File( test.doc );\nString node =  TestDivision/Cabinet/Folder1 ;\nMap String,String  indexes = new HashMap String,String ();\nindexes.put( customIndex1 ,  value1 );\nindexes.put( customIndex2 ,  value2 );\nString docId = client.importDocument(file, node, indexes);", 
+            "title": "Importing a document"
+        }, 
+        {
+            "location": "/Remote/Java/#getting-a-document-from-papertrail", 
+            "text": "InputStream stream = client.getDocument(docId);\nGetting the metadata for a Document.\nDocument document = client.getDocumentMetadata(docId);\nSystem.out.println(document.getTitle());\nSystem.out.println(document.getIndexes().get( customIndex1 );\nChecking out a document:\nclient.checkout(docId);\nChecking in a document:\nFile file = new File( test-0.2.doc );\nString version =  0.2 ;\nString comments =  just some minor updates to the document ;\nclient.checkin(docId, file, version, comments);", 
+            "title": "Getting a document from Papertrail"
+        }, 
+        {
+            "location": "/Remote/Java/#updating-document-metatdataindexes", 
+            "text": "Map String,String  indexes = new HashMap String,String ();\nindexes.put( customIndex1 ,  value1_update );\nindexes.put( customIndex2 ,  value2_update );\nclient.updateMetadata(docId, indexes);  All actions internally map to execute method calls, so checkout is equivalent to:\nclient.execute(\"checkout\", docId, null);\nOnly a few of the standard actions have been implemented in the Java Wrapper, they rest can be called using the execute method, see", 
+            "title": "Updating document metatdata/indexes"
+        }, 
+        {
+            "location": "/Remote/Java/#searching-for-documents", 
+            "text": "String query =\nString columns = ;\nQueryResults results = client.query( TestDivision/Cabinet/* )\n    .column( docId , filename , title , subject , createdDate , createdBy )\n    .execute();\nSystem.out.println( Total number of docs:   + results.getTotal());\nfor (Map String,String  document : results.getResults()) {\n    System.out.println(document.get( docId );\n    System.out.println(document.get( filename );\n    System.out.println(document.get( createdDate );\n}\nFor the syntax of the query see Appendix A, PaperTrail Query Language (PQL)\nListing users, groups, routes or contacts (Parties):\n// list all parties\nclient.queryParties( );\n// list all users\nclient.queryParties( ,  user , null);\n//list all groups and routes\nclient.queryParties( ,  group,route , null)\n//list only users with access to TestDivision/Cabinet\nclient.queryParties( ,  user ,  TestDivision/Cabinet );\n//list all users starting with 'a'\nclient.queryParties( a );", 
+            "title": "Searching for documents"
+        }, 
+        {
+            "location": "/esign/api/", 
+            "text": "Paths\n\n\n\n\n\n\n\n\n\n\n\n\n/signature/upload/{API_KEY}\n\n\n\n\n\n\n\n\n\n\n\n\nPOST/signature/upload/{API_KEY}\n\n\n\n\n\n\n\n\n\n\n\nProvides a mechanism for 3rd party applications to upload a document to be signed within PaperTrail eSign  \n\n\nContent-Type:\n application/octet-stream\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\n\n\nLocated \u00a0\n\n\nDescription\n\n\nRequired\n\n\nSchema\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAPI_KEY\n\n\npath\n\n\n\n\n\nFor multi-tenanted instances this will be created for you and provided.\u00a0\n\nFor on - premise dedicated installations this needs to match the \"signature.api.key\" system property\n\n\n\n\n\nYes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstring\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\npdf\n\n\nBODY\n\n\n\n\n\nThe PDF or PDF convertible file for signing in raw format (NOT multi - part/form - data)  \n\n\n{signature1=}\n\n\n{signature2=John Doe, email=john@doe.com}\n\n\n{signature3= type=text, name=text field, required=true}\n\n\n\n\n\nYes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nraw\n \n(binary)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfilename\n\n\nquery\n\n\n\n\n\nThe filename of the original document\n\n\n\n\n\nYes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstring\n \n(string)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncallback\n\n\nquery\n\n\n\n\n\nA URL to be called when the signature proces is complete\n\n\n\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstring\n \n(url)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncallbackMethod\n\n\nquery\n\n\n\n\n\nPUT,POST\n\n\n\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstring\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndesign\n\n\nquery\n\n\n\n\n\nDefaults to true, If true opens the document in design mode so that users can place signatures and fields before signing/sending. \u00a0\n\nIf false signature fields are expected to be already embedded in the PDF using {signature1= , type= } syntax\n\n\n\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nboolean\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsend\n\n\nquery\n\n\n\n\n\nDefaults to false, If specified any embedded signature tag will be parsed and an email send to the users for signing @since 8. 8.3\n\n\n\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nboolean\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nuser\n\n\nquery\n\n\n\n\n\nThe name of the user who will be signing/sending\n\n\n\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstring\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nemail\n\n\nquery\n\n\n\n\n\nThe email of the user who will be signing/sending\n\n\n\n\n\nNo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstring\n \n(email)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nResponses\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\n\n\nDescription\n\n\nExamples\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n200\n\n\n\n\n\nA URL for the user to be redirected to for signing\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nplain/text\n\n\n\n\n\nhttps://esign.papertrail.co.za/token/X:XXXX?1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n401\n\n\n\n\n\nIf the API KEY is invalid\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n500\n\n\n\n\n\nIf the document is not in a PDF or PDF convertable format or other error\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/example/callback\n\n\n\n\n\n\n\n\n\n\n\n\nPOST/example/callback\n\n\n\n\n\n\n\n\n\nAn example of the API which needs to be implemented to receive callbacks when the signature process is complete\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\n\n\nLocated in\n\n\nDescription\n\n\nRequired\n\n\nSchema\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPDF\n\n\nBODY\n\n\n\n\n\nThe signed PDF document in raw format (NOT multi-part/form - data)\n\n\n\n\n\nYes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u00a0\n\n\nraw\n\u00a0 \u00a0 \n(binaru)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntxId\n\n\nquery\n\n\n\n\n\nThe transaction id of the process\n\n\n\n\n\nYes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstring\n \u00a0 \n(string)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nResponses\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n500\n\n\n\n\n\nThe callback will be retried for up to 3 days should the host or API not respong with a 200 or 204", 
+            "title": "Api"
+        }, 
+        {
+            "location": "/esign/api/#paths", 
+            "text": "", 
+            "title": "Paths"
+        }, 
+        {
+            "location": "/esign/api/#signatureuploadapi_key", 
+            "text": "POST/signature/upload/{API_KEY}     Provides a mechanism for 3rd party applications to upload a document to be signed within PaperTrail eSign    Content-Type:  application/octet-stream       Name  Located \u00a0  Description  Required  Schema      API_KEY  path   For multi-tenanted instances this will be created for you and provided.\u00a0 \nFor on - premise dedicated installations this needs to match the \"signature.api.key\" system property   Yes         string          pdf  BODY   The PDF or PDF convertible file for signing in raw format (NOT multi - part/form - data)    {signature1=}  {signature2=John Doe, email=john@doe.com}  {signature3= type=text, name=text field, required=true}   Yes         raw   (binary)          filename  query   The filename of the original document   Yes         string   (string)          callback  query   A URL to be called when the signature proces is complete   No         string   (url)          callbackMethod  query   PUT,POST   No         string          design  query   Defaults to true, If true opens the document in design mode so that users can place signatures and fields before signing/sending. \u00a0 \nIf false signature fields are expected to be already embedded in the PDF using {signature1= , type= } syntax   No        boolean          send  query   Defaults to false, If specified any embedded signature tag will be parsed and an email send to the users for signing @since 8. 8.3   No         boolean          user  query   The name of the user who will be signing/sending   No        string          email  query   The email of the user who will be signing/sending   No        string   (email)", 
+            "title": "/signature/upload/{API_KEY}"
+        }, 
+        {
+            "location": "/esign/api/#responses", 
+            "text": "Code  Description  Examples      200   A URL for the user to be redirected to for signing       plain/text   https://esign.papertrail.co.za/token/X:XXXX?1         401   If the API KEY is invalid        500   If the document is not in a PDF or PDF convertable format or other error", 
+            "title": "Responses"
+        }, 
+        {
+            "location": "/esign/api/#examplecallback", 
+            "text": "POST/example/callback    \nAn example of the API which needs to be implemented to receive callbacks when the signature process is complete        Name  Located in  Description  Required  Schema      PDF  BODY   The signed PDF document in raw format (NOT multi-part/form - data)   Yes       \u00a0  raw \u00a0 \u00a0  (binaru)          txId  query   The transaction id of the process   Yes        string  \u00a0  (string)", 
+            "title": "/example/callback"
+        }, 
+        {
+            "location": "/esign/api/#responses_1", 
+            "text": "Code  Description      500   The callback will be retried for up to 3 days should the host or API not respong with a 200 or 204", 
+            "title": "Responses"
+        }, 
+        {
+            "location": "/esign/development/", 
+            "text": "Development Modes\n\n\nDesign\n\n\ndesign=true\n\nThe mode used to place signature fields and edit scripts.\n\nuse \nSettings (Cog) -\n Preferences -\n Advanced\n for more developer options\n\n\nSign\n\n\nThe primary mode after signature design used for filling in fields and signing\n\n\nURL parameters will be used to pre-populate fields e.g.\n/web/eSign?XXX\ntext=value1\ntext2=value2\n If you specify the \nfill=true\n then the values will be written into the PDF first and will not be editable.\n\nIf you specify \ndefault=true\n then the values will become the default values but will not trigger any change listeners.\n\n\nPreview\n\n\npreview=true\n  \n\n\nAvailable under \nSettings --\n Preview\n\n\nYou can preview an existing completed form by using \nfrom\n URL param e.g. if \n123\n is the \ndocId\n of the completed form: \nfrom=123\n You can assume the role by using \n{Role}={Name}\n\nWhere \n{Name}\n is your currently logged in user name and \n\n\n{Role}\n is the name of the user e.g. \n{Manager}=Administrator\n\n\nTemplates\n\n\nTemplates are created in the design stage by clicking \nSettings -\n Save as Template\n\nAny changes made afterwards will automatically update the template.  ]\nTo use a new Template goto \neSign -\n {Template Name} -\n Request New\n\nor by using the API \n/eform/create/{Template}", 
+            "title": "Development"
+        }, 
+        {
+            "location": "/esign/development/#development-modes", 
+            "text": "", 
+            "title": "Development Modes"
+        }, 
+        {
+            "location": "/esign/development/#design", 
+            "text": "design=true \nThe mode used to place signature fields and edit scripts. \nuse  Settings (Cog) -  Preferences -  Advanced  for more developer options", 
+            "title": "Design"
+        }, 
+        {
+            "location": "/esign/development/#sign", 
+            "text": "The primary mode after signature design used for filling in fields and signing  URL parameters will be used to pre-populate fields e.g. /web/eSign?XXX text=value1 text2=value2  If you specify the  fill=true  then the values will be written into the PDF first and will not be editable. \nIf you specify  default=true  then the values will become the default values but will not trigger any change listeners.", 
+            "title": "Sign"
+        }, 
+        {
+            "location": "/esign/development/#preview", 
+            "text": "preview=true     Available under  Settings --  Preview  You can preview an existing completed form by using  from  URL param e.g. if  123  is the  docId  of the completed form:  from=123  You can assume the role by using  {Role}={Name} \nWhere  {Name}  is your currently logged in user name and   {Role}  is the name of the user e.g.  {Manager}=Administrator", 
+            "title": "Preview"
+        }, 
+        {
+            "location": "/esign/development/#templates", 
+            "text": "Templates are created in the design stage by clicking  Settings -  Save as Template \nAny changes made afterwards will automatically update the template.  ]\nTo use a new Template goto  eSign -  {Template Name} -  Request New \nor by using the API  /eform/create/{Template}", 
+            "title": "Templates"
+        }, 
+        {
+            "location": "/esign/scripting/", 
+            "text": "eSign Scripting\n\n\neSign forms are scriptable at 3 different levels:\n\n\n\n\nField Level -\u00a0Accessible by \nright clicking\n on a field and selecting \nScripts\n\n\nForm Validations - Accessible by clicking on the \ncog\n in the top right and selecting \nForm Properties\n\n\nServer Side\u00a0\n\n\nEvent based via Node Rules and Workflows\n\n\nData Source based\n\n\n\n\n\n\n\n\nField Level\n\n\nThe custom field level scripts are applied to the underlying EgisUI field component e.g. apply(field, custom), this means any functionality available in EgisUI is available on a field level.  \n\n\nThe scripts applied to fields must be valid Javascript (ES5) Objects = i.e. begin with { and and with \n}\n\n\nValidations\n\n\nAdd a required validation for a number between 1 and 10:\n\n\n{  \n\u00a0validations: \"required number(1,10)\"  \n}\n\n\nValidations are created by specifying a validation string or a validation function on a property via the Right click -\n Scripts dialog.  \n\n\n{  \n\u00a0 \u00a0validations: \nnumber(1,10)\n  \n}\n\n\n\n\nAdds a required validation for a number between 1 and 10\n\n\nValidation Format\n\n\n\n\n\n\n\n\n\n\n\nValidator\n\n\n\nExample\u00a0\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nrequired\n\n\n\nEnsure that a field is completed with non empty string\n\n\n\n\n\n\n\n\n\n\n\nnumber(min,max)\n\n\n\nnumber  \nnumber(1)  \nnumber(1,2)\n\n\n\nEnsures that a value is valid number and/or between min and max\n\n\n\n\n\n\n\n\n\nlength(min,max)\n\n\n\nlength(1)\n  \n\nlength(1,2)\n\n\n\nEnsures that at least min and at most max chars are specified\n\n\n\n\n\n\n\n\n\nSouth African ID\n\n\n\nSouthAfricanID\n\n\n\nEnsures that the value entered is valid south african ID using the checksum validation\u00a0\u00a0\u00a0\u00a0\n\n\n\n\n\n\n\n\n\nCapitalize\n\n\n\nCapitalize\n\n\n\nEnsures that the first letter is capitalized e.g. John smith is valid, but john smith is not\n\n\n\n\n\n\n\n\n\nCapitalize ALL\n\n\n\nCapitalizeAll\n\n\n\nEnsures all words are capitalized, John Smith is valid, but John smithis not\n\n\n\n\n\n\n\n\n\nemail\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndate\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndatetime\n\n\n\n\n\n\n\n\n\n\n\n\nfuture\n\n\n\n\n\n\n\n\n\n\n\n\n\n\npast\n\n\n\n\n\n\n\n\n\n\n\n\n\n\npassword\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nip\n\n\n\n\n\n\n\n\n\n\n\n\n\nurl\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustom Validations\n\n\n{  \n\u00a0\u00a0 \u00a0validator() {  \n\u00a0 \u00a0 \u00a0 \u00a0if (this.value = 'password') {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0return \nCannot specify 'password' as a password'; \u00a0 \u00a0\u00a0  \n\u00a0 \u00a0 \u00a0 \u00a0}\u00a0  \n\u00a0 \u00a0 \u00a0 \u00a0// no return or null return indicates a validation pass  \n\u00a0\u00a0 }  \n}\n\n\n\n\nAsync Validation\n\n\n{\n    type: 'hidden',\n    alwaysValidate: false, // hidden fields are not normally validated\n    validate: function() {\n        var form = this.field.form;\n        var field = this.field;\n        if (!form.IDNumber.valid) {\n            // dont sent network request if not necessary\n            return \n;\n        }\n\n        //return a promise for async validators\n        return new Promise(function(resolve) {\n            HTTP.get('/data/3rd_party?id=' + form.IDNumber.value).then( function(result) {\n\n                if (result.valid) {\n                    //resolve with nothing is validation pass\n                    resolve(\n); \n                } else {\n                    //resolve with an error message to show the user\n                    resolve(result.validation_error);\n                }\n            })\n        });\n}\n\n\n\n\nPopulating values\n\n\nPopulate all matching fields based on data returned by a data source:\u00a0\u00a0\u00a0\u00a0 \u00a0\u00a0\u00a0\u00a0\n\n\n{  \n\u00a0onChange: function() {  \n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0this.form.values = this.data;  \n\u00a0\u00a0\u00a0\u00a0}  \n}\n\n\n\n\nConfigure a default value:\n\n\n{  \n\u00a0value: 'one123'  \n}\n\n\n\n\nField Properties\n\n\n\n\n\n\n\n\n\n\n\nReference\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\nthis\n\n\n\nreference to the EgisUI field\n\n\n\n\n\n\n\n\n\nthis.form\n\n\n\na reference to the EgisUI form\n\n\n\n\n\n\n\n\n\nthis.form.values\n\n\n\nA map of all\u00a0\nfield name and values entered in the form  \nCan also be used to set other fields en mass by assigning it a map\n\n\n\n\n\n\n\n\n\nthis.data\n\n\n\n\u00a0In a\u00a0\n datasource \n\u00a0lookup field all of the data returned by the\u00a0\n datasource\n\n\n\n\n\n\n\n\n\n\n\n\nSee \nField\n and \nForm\n for a more complete list.\n\n\nField Properties\n\n\nField properties are accessible in listeners  \n\n\n\n\n\n\n\n\n\n\n\nProperty\n\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhidden\n\n\n\nhide from the user, but do not return in form.values and submissions\n\n\n\n\n\n\n\n\n\ndisabled\n\n\n\ndisabled fields are not returned in form.values\n\n\n\n\n\n\n\n\n\nvalue\n\n\n\n\n\n\n\n\n\n\n\nvalid\n\n\n\nhidden and disabled fields are always valid\n\n\n\n\n\n\n\n\n\ninvalid\n\n\n\nThe invalid error message to show the user\n\n\n\n\n\n\n\n\n\nhelp\n\n\n\nA help message to show below / as tooltip\u00a0\n\n\n\n\n\n\n\n\n\nlabel\n \u00a0 \u00a0 \u00a0\u00a0\n\n\n\nAllows changing the label of a field dynamically\n\n\n\n\n\n\n\n\n\nel\n\n\n\nThe underlying \u00a0HTML DOM element\n\n\n\n\n\n\n\n\n\n_container\n\n\n\nThe underlying HTML DOM element that contains the label, messages and el\n\n\n\n\n\n\n\n\n\n\n\n\nField Binding\n\n\nField properties can be bound to others fields values, e.g. to hide field a when field b is checked:\n\n\n{  \n\u00a0 \u00a0 bind: {  \n\u00a0 \u00a0 \u00a0 \u00a0 hidden: \nfieldb == 'true'\n  \n\u00a0\u00a0\u00a0\u00a0}  \n}\n\n\n\n\nIf a field will be disabled, the following format should be used:\n\n\n{ \n    bind: { \n        hidden: \nform.fieldb.value == 'true'\n \n    } \n}\n\n\n\n\nForm Validations\n\n\nAll field values are available directly\u00a0\n\n\nif (text1 != \"123\")\n\n\nOr indirectly:\n\n\nif (form.text1.value)\n\n\nGlobal Functions\n\n\nTo add a global function that can be used in multiple field handlers, in the \nForm Properties -\n Initialization Script\n field add the function:  \n\n\nwindow.helloWorld = function(field) {  \n\u00a0\u00a0\u00a0\u00a0return field.value + \n world\n;  \n}\n\n\n\n\nwhich can then be used in a field script:  \n\n\n{  \n\u00a0\u00a0\u00a0\u00a0onChange: function() {  \n\u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0this.form.hello = helloWorld(this);\u00a0  \n\u00a0\u00a0\u00a0\u00a0}  \n}\n\n\n\n\nMultiple Signers\n\n\nTo have multiple people sign the same document add 2 or more signatures fields.  \n\n\nYou must specify a name and email - If it is unknown at the time of design, then you can use a placeholder role e.g. \n{Manager}\n\nTo assign the role to a specific person use the following script:  \n\n\ndoc.signature().assignRole('{Manager}', 'John Smith')`  \n\n\n\n\nYou can also create a new user on demand from values within the form:\n\n\nimport com.egis.kernel.Kernel;\nimport com.egis.security.TokenService;\n\n\ndef session = doc.session;\ndef tokens = Kernel.get(TokenService.class);\n\n//retrieved values from the saved form\ndef form = doc.signature().getSavedValues();\n\ndef user = tokens.getOrCreateShareUser(form.email, form.name)\n\ndoc.signature().assignRole('{Manager}', user.name)\n\n//send will automatically assign permissions if they are a share user \ndoc.signature().send();\n\n//otherwise you need to add permissions explicitly\n//doc.security().addRole(user, \nSIGN\n)\n\n\n\n\n\n\nTo restrict which fields are editable by which users select the \nRestrict To\n option in the fields properties window.  \n\n\nAccessing Previously Submitted Values\n\n\nAny field that was completed and printed to the PDF will still be available in scripts as a hidden\u00a0read-only field.  \n\n\nDuplicate Fields\n\n\nYou can also duplicate fields field specifying the same name but different Restrict To - Only the relevant fields will be shown to the users.\n\nIf a value has already been completed e.g. in a Submit and Approve/Amend scenario then the previous value will pre-populated the duplicated value.  \n\n\nthis[name]\n and \nthis.values\n will return the current field values - to access the old field values manually filter the fields list:  \n\n\nthis.fields.find(function(fld) {  \n\u00a0 return fld.name == 'original value' \n fld.options.hidden;  \n});\n\n\n\n\nRadio Buttons\n\n\nTo combine radio buttons into a group, give all the fields the same field \nid\n. The \nlabel\n of the field will be used as value.\n\n\nTo access the individual radios in a group: \nradio1.fields[0].hide()\n\n\nDisabled, hidden and required will all works as expected.\n\n\nThe required indicator will be shown on the first field with \nrequired = true\n\n\nLookup Fields\n\n\nUpdate a form with all values returned from a lookup:\n\n\n{\n  onChange: function() {  \n\u00a0\u00a0 this.form.values = this.data  \n\u00a0 }  \n}\n\n\n\n\nWhere:\n\n\nthis.form.values\nis an property setter to set all the values on the form\n\n\nthis.data\n is an object of the currently selected lookup item\n\n\nUpdating a lookup field dynamically:\n\n\ncombo.update([{value:1,description: 'one'},{value:2,description:'two'}])\n\n\n\n\nParent Child lookup fields:\n\n\nOn the source lookup field use the following script:\n\n\n{  \n\u00a0 onChange: function() {  \n\u00a0 \u00a0 var id = this.data.get('userId');  \n\u00a0 \u00a0 if (id != null) {  \n\u00a0 \u00a0 \u00a0\u00a0\u00a0\u00a0var lookup3 = this.form.lookup3;  \n\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0 get('/data/{data source name}?filter=' + id, function(items) {  \n\u00a0 \u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0lookup3.update(items)  \n\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0 });  \n\u00a0 \u00a0 }  \n\u00a0 } \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \n}\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\n\nWhere:\n\n\nthis.data\n is an object of the currently selected lookup item\n\n\nthis.data.get\n is a method to retrieve an item from the data object without case sensisitivyt (normal case sensitive his.data.userid can still be used)\u00a0\n\n\nlookup3\n is any Lookup field, A Dynamic List can be used for lookups that render empty \u00a0and can only be populated by scripts\n\n\n/data/\n\u00a0is the path to the data source lookup service\n\n\n{data source name}\n is the name of data source config under Services -\n Data Sources\n\n\nfilter\n\u00a0maps to the\u00a0\n${filter}\n parameter in the above data source", 
+            "title": "Scripting"
+        }, 
+        {
+            "location": "/esign/scripting/#esign-scripting", 
+            "text": "eSign forms are scriptable at 3 different levels:   Field Level -\u00a0Accessible by  right clicking  on a field and selecting  Scripts  Form Validations - Accessible by clicking on the  cog  in the top right and selecting  Form Properties  Server Side\u00a0  Event based via Node Rules and Workflows  Data Source based", 
+            "title": "eSign Scripting"
+        }, 
+        {
+            "location": "/esign/scripting/#field-level", 
+            "text": "The custom field level scripts are applied to the underlying EgisUI field component e.g. apply(field, custom), this means any functionality available in EgisUI is available on a field level.    The scripts applied to fields must be valid Javascript (ES5) Objects = i.e. begin with { and and with  }", 
+            "title": "Field Level"
+        }, 
+        {
+            "location": "/esign/scripting/#validations", 
+            "text": "Add a required validation for a number between 1 and 10:  {  \n\u00a0validations: \"required number(1,10)\"  \n}  Validations are created by specifying a validation string or a validation function on a property via the Right click -  Scripts dialog.    {  \n\u00a0 \u00a0validations:  number(1,10)   \n}  Adds a required validation for a number between 1 and 10", 
+            "title": "Validations"
+        }, 
+        {
+            "location": "/esign/scripting/#validation-format", 
+            "text": "Validator  Example\u00a0  Description      required  Ensure that a field is completed with non empty string     number(min,max)  number  \nnumber(1)  \nnumber(1,2)  Ensures that a value is valid number and/or between min and max    length(min,max)  length(1)    length(1,2)  Ensures that at least min and at most max chars are specified    South African ID  SouthAfricanID  Ensures that the value entered is valid south african ID using the checksum validation\u00a0\u00a0\u00a0\u00a0    Capitalize  Capitalize  Ensures that the first letter is capitalized e.g. John smith is valid, but john smith is not    Capitalize ALL  CapitalizeAll  Ensures all words are capitalized, John Smith is valid, but John smithis not    email      date      datetime     future      past      password      ip      url", 
+            "title": "Validation Format"
+        }, 
+        {
+            "location": "/esign/scripting/#custom-validations", 
+            "text": "{  \n\u00a0\u00a0 \u00a0validator() {  \n\u00a0 \u00a0 \u00a0 \u00a0if (this.value = 'password') {  \n\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0return  Cannot specify 'password' as a password'; \u00a0 \u00a0\u00a0  \n\u00a0 \u00a0 \u00a0 \u00a0}\u00a0  \n\u00a0 \u00a0 \u00a0 \u00a0// no return or null return indicates a validation pass  \n\u00a0\u00a0 }  \n}", 
+            "title": "Custom Validations"
+        }, 
+        {
+            "location": "/esign/scripting/#async-validation", 
+            "text": "{\n    type: 'hidden',\n    alwaysValidate: false, // hidden fields are not normally validated\n    validate: function() {\n        var form = this.field.form;\n        var field = this.field;\n        if (!form.IDNumber.valid) {\n            // dont sent network request if not necessary\n            return  ;\n        }\n\n        //return a promise for async validators\n        return new Promise(function(resolve) {\n            HTTP.get('/data/3rd_party?id=' + form.IDNumber.value).then( function(result) {\n\n                if (result.valid) {\n                    //resolve with nothing is validation pass\n                    resolve( ); \n                } else {\n                    //resolve with an error message to show the user\n                    resolve(result.validation_error);\n                }\n            })\n        });\n}", 
+            "title": "Async Validation"
+        }, 
+        {
+            "location": "/esign/scripting/#populating-values", 
+            "text": "Populate all matching fields based on data returned by a data source:\u00a0\u00a0\u00a0\u00a0 \u00a0\u00a0\u00a0\u00a0  {  \n\u00a0onChange: function() {  \n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0this.form.values = this.data;  \n\u00a0\u00a0\u00a0\u00a0}  \n}  Configure a default value:  {  \n\u00a0value: 'one123'  \n}", 
+            "title": "Populating values"
+        }, 
+        {
+            "location": "/esign/scripting/#field-properties", 
+            "text": "Reference  Description      this  reference to the EgisUI field    this.form  a reference to the EgisUI form    this.form.values  A map of all\u00a0 field name and values entered in the form  \nCan also be used to set other fields en mass by assigning it a map    this.data  \u00a0In a\u00a0  datasource  \u00a0lookup field all of the data returned by the\u00a0  datasource     See  Field  and  Form  for a more complete list.", 
+            "title": "Field Properties"
+        }, 
+        {
+            "location": "/esign/scripting/#field-properties_1", 
+            "text": "Field properties are accessible in listeners       Property  Description      hidden  hide from the user, but do not return in form.values and submissions    disabled  disabled fields are not returned in form.values    value     valid  hidden and disabled fields are always valid    invalid  The invalid error message to show the user    help  A help message to show below / as tooltip\u00a0    label  \u00a0 \u00a0 \u00a0\u00a0  Allows changing the label of a field dynamically    el  The underlying \u00a0HTML DOM element    _container  The underlying HTML DOM element that contains the label, messages and el", 
+            "title": "Field Properties"
+        }, 
+        {
+            "location": "/esign/scripting/#field-binding", 
+            "text": "Field properties can be bound to others fields values, e.g. to hide field a when field b is checked:  {  \n\u00a0 \u00a0 bind: {  \n\u00a0 \u00a0 \u00a0 \u00a0 hidden:  fieldb == 'true'   \n\u00a0\u00a0\u00a0\u00a0}  \n}  If a field will be disabled, the following format should be used:  { \n    bind: { \n        hidden:  form.fieldb.value == 'true'  \n    } \n}", 
+            "title": "Field Binding"
+        }, 
+        {
+            "location": "/esign/scripting/#form-validations", 
+            "text": "All field values are available directly\u00a0  if (text1 != \"123\")  Or indirectly:  if (form.text1.value)", 
+            "title": "Form Validations"
+        }, 
+        {
+            "location": "/esign/scripting/#global-functions", 
+            "text": "To add a global function that can be used in multiple field handlers, in the  Form Properties -  Initialization Script  field add the function:    window.helloWorld = function(field) {  \n\u00a0\u00a0\u00a0\u00a0return field.value +   world ;  \n}  which can then be used in a field script:    {  \n\u00a0\u00a0\u00a0\u00a0onChange: function() {  \n\u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0this.form.hello = helloWorld(this);\u00a0  \n\u00a0\u00a0\u00a0\u00a0}  \n}", 
+            "title": "Global Functions"
+        }, 
+        {
+            "location": "/esign/scripting/#multiple-signers", 
+            "text": "To have multiple people sign the same document add 2 or more signatures fields.    You must specify a name and email - If it is unknown at the time of design, then you can use a placeholder role e.g.  {Manager} \nTo assign the role to a specific person use the following script:    doc.signature().assignRole('{Manager}', 'John Smith')`    You can also create a new user on demand from values within the form:  import com.egis.kernel.Kernel;\nimport com.egis.security.TokenService;\n\n\ndef session = doc.session;\ndef tokens = Kernel.get(TokenService.class);\n\n//retrieved values from the saved form\ndef form = doc.signature().getSavedValues();\n\ndef user = tokens.getOrCreateShareUser(form.email, form.name)\n\ndoc.signature().assignRole('{Manager}', user.name)\n\n//send will automatically assign permissions if they are a share user \ndoc.signature().send();\n\n//otherwise you need to add permissions explicitly\n//doc.security().addRole(user,  SIGN )  To restrict which fields are editable by which users select the  Restrict To  option in the fields properties window.", 
+            "title": "Multiple Signers"
+        }, 
+        {
+            "location": "/esign/scripting/#accessing-previously-submitted-values", 
+            "text": "Any field that was completed and printed to the PDF will still be available in scripts as a hidden\u00a0read-only field.", 
+            "title": "Accessing Previously Submitted Values"
+        }, 
+        {
+            "location": "/esign/scripting/#duplicate-fields", 
+            "text": "You can also duplicate fields field specifying the same name but different Restrict To - Only the relevant fields will be shown to the users. \nIf a value has already been completed e.g. in a Submit and Approve/Amend scenario then the previous value will pre-populated the duplicated value.    this[name]  and  this.values  will return the current field values - to access the old field values manually filter the fields list:    this.fields.find(function(fld) {  \n\u00a0 return fld.name == 'original value'   fld.options.hidden;  \n});", 
+            "title": "Duplicate Fields"
+        }, 
+        {
+            "location": "/esign/scripting/#radio-buttons", 
+            "text": "To combine radio buttons into a group, give all the fields the same field  id . The  label  of the field will be used as value.  To access the individual radios in a group:  radio1.fields[0].hide()  Disabled, hidden and required will all works as expected.  The required indicator will be shown on the first field with  required = true", 
+            "title": "Radio Buttons"
+        }, 
+        {
+            "location": "/esign/scripting/#lookup-fields", 
+            "text": "", 
+            "title": "Lookup Fields"
+        }, 
+        {
+            "location": "/esign/scripting/#update-a-form-with-all-values-returned-from-a-lookup", 
+            "text": "{\n  onChange: function() {  \n\u00a0\u00a0 this.form.values = this.data  \n\u00a0 }  \n}  Where:  this.form.values is an property setter to set all the values on the form  this.data  is an object of the currently selected lookup item", 
+            "title": "Update a form with all values returned from a lookup:"
+        }, 
+        {
+            "location": "/esign/scripting/#updating-a-lookup-field-dynamically", 
+            "text": "combo.update([{value:1,description: 'one'},{value:2,description:'two'}])", 
+            "title": "Updating a lookup field dynamically:"
+        }, 
+        {
+            "location": "/esign/scripting/#parent-child-lookup-fields", 
+            "text": "On the source lookup field use the following script:  {  \n\u00a0 onChange: function() {  \n\u00a0 \u00a0 var id = this.data.get('userId');  \n\u00a0 \u00a0 if (id != null) {  \n\u00a0 \u00a0 \u00a0\u00a0\u00a0\u00a0var lookup3 = this.form.lookup3;  \n\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0 get('/data/{data source name}?filter=' + id, function(items) {  \n\u00a0 \u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0lookup3.update(items)  \n\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0 });  \n\u00a0 \u00a0 }  \n\u00a0 } \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \n}\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  Where:  this.data  is an object of the currently selected lookup item  this.data.get  is a method to retrieve an item from the data object without case sensisitivyt (normal case sensitive his.data.userid can still be used)\u00a0  lookup3  is any Lookup field, A Dynamic List can be used for lookups that render empty \u00a0and can only be populated by scripts  /data/ \u00a0is the path to the data source lookup service  {data source name}  is the name of data source config under Services -  Data Sources  filter \u00a0maps to the\u00a0 ${filter}  parameter in the above data source", 
+            "title": "Parent Child lookup fields:"
+        }, 
+        {
+            "location": "/workflow/getting-started/", 
+            "text": "Workflow\n\n\nA \nworkflow\n is an arrangement of automatic actions and human tasks. A workflow can include branches by using events, filters, and timers.\n\n\nUse a workflow to do things such as these:\n\n\n\n\nSubmit a document for review and approval.\n\n\nManage a request for employment.\n\n\nMake sure that an invoice is not a duplicate invoice.\n\n\nManage approvals for purchase orders.\n\n\nLet a user request a leave of absence.\n\n\n\n\nTo add a workflow, use the Workflow Editor. \n\n\nA workflow can be started in these ways:\n* From the main dashboard, a user selects a workflow form. By default, the workflow forms are available from the Workflow menu.\n\n\nSometimes, a workflow form is available only if a document is selected. In the example above, TS Approval Cycle is available only when a document is selected.\n\n\n\n\nFrom the main dashboard, a user forwards a document to a workflow. This method is used only for testing.\n\n\nThe administrator uses a node rule to allocate the document to a workflow. For example, you can use an allocate rule to allocate a new document to another user when the document is created (use the Document.create event).\n\n\n\n\nAdding a workflow\n\n\nWhen you add a workflow, use the most recent version of Firefox or Chrome.\n\n\nTo add a workflow\n\n1.  Select \nUser Management\nWorkflow\n.\n\n2.  Click \nAdd\n.\n\n3.  In the Add Workflow screen, type a name and click \nAdd\n. \n4.  Select the workflow, and click \nEdit Workflow\n.\n\nThe Workflow Editor appears in a new tab. Refer to the next section.\n\n5.  Drag objects from the Library to the main part of the screen, connect them to build the workflow, and if necessary, edit each object.\n\n6.  When the workflow is completed, click \nValidate\n to make sure that the workflow has no errors.\n\n7.  Click \nSave and Deploy\n.    \n\n\nThe workflow is now available from the main dashboard.\n\n\nThe Workflow Editor\n\n\n\n\nBasic Editing\n\n\n\n\nExample workflow: request for approval\n\n\nA \nrequest for approval\n workflow is as follows.\n\n1. From the main dashboard, a user submits a document for approval. The document goes to the approver. PaperTrail sends an email to the approver.\n\n2. One of these occurs:\n\n\n\n\nIn less than 2 hours after the document moves to the approver, the approver approves the document. PaperTrail moves the document to a folder, and the workflow is completed.  \n\n\nIn less than 2 hours after the document moves to the approver, the approver denies the request for approval. PaperTrail sends the document back to the user who submitted the document.   PaperTrail sends an email to that user. That user must correct the document, and resubmit the document.  \n\n\nIf the approver does not deal with the document within 2 hours, PaperTrail sends an email reminder to the approver.  \n\n\n\n\nIn the Workflow Editor, the workflow looks like this:\n\n\n\n\nAn explanation of the request for approval workflow\n\n\nForm\n\n\nA \nworkflow form\n is mechanism for completing a human task or for ending the waiting state of an unassigned document. A workflow form has zero or more fields. (To prevent confusion with forms in \nGeneral\nForm\n, this guide uses \u2018workflow form\u2019.)\nThe workflow form TS Approval Cycle has 1 field:\n\n\n\n\nIn the main dashboard, after a user (the original submitter) clicks \nWorkflow\nTS Approval Cycle\n, the workflow form TS Approval Cycle is available.\n\n\n\n\nTS Approval Cycle is available only when a document is selected.\nThe workflow form Approve has no fields. In the main dashboard, after the original submitter submits the TS Approval Cycle workflow form, Sally S sees this:\n\n\n\n\nNote. After you deploy a workflow, if you change the label of the first workflow form and then save and deploy again, the new name does not appear on the Workflow menu in the main dashboard. Although the old name appears, a user can use the workflow form. To make the name appear correctly on the Workflow menu, you must restart PaperTrail (\nServices\nTasks -\n Restart PaperTrail\n).\n\n\nUpdate Index\n\n\nAfter a user submits the TS Approval Cycle workflow form, the next stage of the workflow is the updateIndex action (Update Index).\n\n\n\n\nThe Source field records the submitter as the sessionUser (the user who submitted the workflow form). Later in the workflow, the submitter is used in the Original submitter human task to send the document back to the user who submitted the workflow form.\n\n\nHuman Task\n\n\nA \nhuman task\n is a task that a user must do using a workflow form. A human task can be completed in 3 ways:\n\n\n\n\nThe user completes the task using a workflow form\n\n\nAn event occurs.  \n\n\nA timer triggers.\n\n\n\n\nAfter PaperTrail updates the index, the document goes to Sally Smith.\n\n\n\n\nOn the Original submitter human task, the document is routed to the user who started the workflow.\n\n\n\n\nTimer\n\n\nA timer specifies an amount of time after which the next stage occurs. The time is specified in 2 ways:\n\n\n\n\nAn amount of time\n\n\nA date that comes from an index. For example, if there is an index Due Date, you can put \nDue Date\n in the Duration field.\n\n\n\n\nIn the workflow, if the approver (Sally S) does not approve or deny in less than 2 hours, then the timer triggers and the next action is for PaperTrail to send an email.\n\n\n\n\nEmail\n\n\n\n\nMove\n\n\nIf Sally S approves the document, PaperTrail moves the document to the specified node, and the workflow ends.\n\n\n\n\nAudit\n\n\nThe Audit screen is for many things, not only to add an audit.\n\n\n\n\nThe example workflowis document-based, which means that a user must send an existing document to the workflow. For an alternative method, refer to [Start a workflow without a document]\nThe field \nDocument Based\n is applicable only to the first workflow form in a workflow.\nOptionally, include audit and status information that will appear on the main dashboard after the workflow form is submitted:\n\n\n\n\n\n\nIn the Audit screen, the value in the Audit field is SUBMITTED, but the History tab shows Submitted. For consistency with other database values, we recommend that you use upper case text in the Audit field. On the History tab, PaperTrail automatically converts this to lower case text.\n\n\nExamples of ways to build a workflow\n\n\nStart a workflow without a document\n\n\nIf the start of a workflow is connected to a workflow form, the workflow form is available on the main dashboard. After a user submits the workflow form, PaperTrail creates a new [item] that is sent to the workflow.\n\n\n\n\nAllocate a document back to the original recipient\n\n\n\n\nThis method cannot be used in the example workflow, because in the example workflow, the original submitter is not part of the workflow.\n\n\nAdd multiple timers\n\n\nA timer triggers only 1 time. However, you can create multiple timeouts:\n\n\n\n\nDo not do this:\n\n\n\n\nInstead, do this:\n\n\n\n\nPut a document into an unassigned state\n\n\nIn an unassigned state, a document is not allocated to a user, but the document remains as part of the workflow.\n\n\n\n\nTo let a user change the state, use a workflow form:\n\n\n\n\nTo use a timer to change the state:\n\n\n\n\nResume a workflow based on an event\n\n\nYou can resume a workflow when a specified event occurs.\n\n\nIn a workflow , a completeTask action \u2018listens\u2019 for the event. If the event occurs, the workflow continues. All the documents that are in the applicable nodes and for which the filters evaluate to true go to the next stage of the workflow.\n\n\nThis example shows part of a workflow. An agent closes an email ticket. If a customer replies to the closed ticket, the ticket is re-opened and the customer\u2019s email is sent to the agent.\n\n\n\n\n\n\nTo make the Document.response event \u2018listen\u2019 to emails, you must set up Email Import (\nImport Management\nEmail Import\n). \n\n\nIn the Update Email Import screen, in the \nAttachment Policy\n field, select Thread.  \n\n\nWhen a new email arrives, if there is an existing thread (conversation), then PaperTrail \u2018check ins\u2019 a new copy of the email.  \n\n\nThe Document.update and Document.update_content events will trigger. A Document.response event triggers, so workflows and rules can be configured to deal with the response.  \n\n\n\n\nFor example, a workflow can notify the current user or allocate the updated document back to the original owner.\n\n\nIf there is no existing thread, then PaperTrail creates a new document, which starts the Document.create event.\n\n\nCreate a branch using filters\n\n\nThe example workflow uses a timer and [workflow forms] to create a branch. Another method to create a branch is to use a filter.\n\n\n\n\nComplex filters can become confusing. A conditional lets you make the connections clearer.", 
+            "title": "Getting started"
+        }, 
+        {
+            "location": "/workflow/getting-started/#workflow", 
+            "text": "A  workflow  is an arrangement of automatic actions and human tasks. A workflow can include branches by using events, filters, and timers.  Use a workflow to do things such as these:   Submit a document for review and approval.  Manage a request for employment.  Make sure that an invoice is not a duplicate invoice.  Manage approvals for purchase orders.  Let a user request a leave of absence.   To add a workflow, use the Workflow Editor.   A workflow can be started in these ways:\n* From the main dashboard, a user selects a workflow form. By default, the workflow forms are available from the Workflow menu.  Sometimes, a workflow form is available only if a document is selected. In the example above, TS Approval Cycle is available only when a document is selected.   From the main dashboard, a user forwards a document to a workflow. This method is used only for testing.  The administrator uses a node rule to allocate the document to a workflow. For example, you can use an allocate rule to allocate a new document to another user when the document is created (use the Document.create event).", 
+            "title": "Workflow"
+        }, 
+        {
+            "location": "/workflow/getting-started/#adding-a-workflow", 
+            "text": "When you add a workflow, use the most recent version of Firefox or Chrome.  To add a workflow \n1.  Select  User Management Workflow . \n2.  Click  Add . \n3.  In the Add Workflow screen, type a name and click  Add . \n4.  Select the workflow, and click  Edit Workflow . \nThe Workflow Editor appears in a new tab. Refer to the next section. \n5.  Drag objects from the Library to the main part of the screen, connect them to build the workflow, and if necessary, edit each object. \n6.  When the workflow is completed, click  Validate  to make sure that the workflow has no errors. \n7.  Click  Save and Deploy .      The workflow is now available from the main dashboard.", 
+            "title": "Adding a workflow"
+        }, 
+        {
+            "location": "/workflow/getting-started/#the-workflow-editor", 
+            "text": "", 
+            "title": "The Workflow Editor"
+        }, 
+        {
+            "location": "/workflow/getting-started/#basic-editing", 
+            "text": "", 
+            "title": "Basic Editing"
+        }, 
+        {
+            "location": "/workflow/getting-started/#example-workflow-request-for-approval", 
+            "text": "A  request for approval  workflow is as follows. \n1. From the main dashboard, a user submits a document for approval. The document goes to the approver. PaperTrail sends an email to the approver. \n2. One of these occurs:   In less than 2 hours after the document moves to the approver, the approver approves the document. PaperTrail moves the document to a folder, and the workflow is completed.    In less than 2 hours after the document moves to the approver, the approver denies the request for approval. PaperTrail sends the document back to the user who submitted the document.   PaperTrail sends an email to that user. That user must correct the document, and resubmit the document.    If the approver does not deal with the document within 2 hours, PaperTrail sends an email reminder to the approver.     In the Workflow Editor, the workflow looks like this:", 
+            "title": "Example workflow: request for approval"
+        }, 
+        {
+            "location": "/workflow/getting-started/#an-explanation-of-the-request-for-approval-workflow", 
+            "text": "", 
+            "title": "An explanation of the request for approval workflow"
+        }, 
+        {
+            "location": "/workflow/getting-started/#form", 
+            "text": "A  workflow form  is mechanism for completing a human task or for ending the waiting state of an unassigned document. A workflow form has zero or more fields. (To prevent confusion with forms in  General Form , this guide uses \u2018workflow form\u2019.)\nThe workflow form TS Approval Cycle has 1 field:   In the main dashboard, after a user (the original submitter) clicks  Workflow TS Approval Cycle , the workflow form TS Approval Cycle is available.   TS Approval Cycle is available only when a document is selected.\nThe workflow form Approve has no fields. In the main dashboard, after the original submitter submits the TS Approval Cycle workflow form, Sally S sees this:   Note. After you deploy a workflow, if you change the label of the first workflow form and then save and deploy again, the new name does not appear on the Workflow menu in the main dashboard. Although the old name appears, a user can use the workflow form. To make the name appear correctly on the Workflow menu, you must restart PaperTrail ( Services Tasks -  Restart PaperTrail ).", 
+            "title": "Form"
+        }, 
+        {
+            "location": "/workflow/getting-started/#update-index", 
+            "text": "After a user submits the TS Approval Cycle workflow form, the next stage of the workflow is the updateIndex action (Update Index).   The Source field records the submitter as the sessionUser (the user who submitted the workflow form). Later in the workflow, the submitter is used in the Original submitter human task to send the document back to the user who submitted the workflow form.", 
+            "title": "Update Index"
+        }, 
+        {
+            "location": "/workflow/getting-started/#human-task", 
+            "text": "A  human task  is a task that a user must do using a workflow form. A human task can be completed in 3 ways:   The user completes the task using a workflow form  An event occurs.    A timer triggers.   After PaperTrail updates the index, the document goes to Sally Smith.   On the Original submitter human task, the document is routed to the user who started the workflow.", 
+            "title": "Human Task"
+        }, 
+        {
+            "location": "/workflow/getting-started/#timer", 
+            "text": "A timer specifies an amount of time after which the next stage occurs. The time is specified in 2 ways:   An amount of time  A date that comes from an index. For example, if there is an index Due Date, you can put  Due Date  in the Duration field.   In the workflow, if the approver (Sally S) does not approve or deny in less than 2 hours, then the timer triggers and the next action is for PaperTrail to send an email.", 
+            "title": "Timer"
+        }, 
+        {
+            "location": "/workflow/getting-started/#email", 
+            "text": "", 
+            "title": "Email"
+        }, 
+        {
+            "location": "/workflow/getting-started/#move", 
+            "text": "If Sally S approves the document, PaperTrail moves the document to the specified node, and the workflow ends.", 
+            "title": "Move"
+        }, 
+        {
+            "location": "/workflow/getting-started/#audit", 
+            "text": "The Audit screen is for many things, not only to add an audit.   The example workflowis document-based, which means that a user must send an existing document to the workflow. For an alternative method, refer to [Start a workflow without a document]\nThe field  Document Based  is applicable only to the first workflow form in a workflow.\nOptionally, include audit and status information that will appear on the main dashboard after the workflow form is submitted:    In the Audit screen, the value in the Audit field is SUBMITTED, but the History tab shows Submitted. For consistency with other database values, we recommend that you use upper case text in the Audit field. On the History tab, PaperTrail automatically converts this to lower case text.", 
+            "title": "Audit"
+        }, 
+        {
+            "location": "/workflow/getting-started/#examples-of-ways-to-build-a-workflow", 
+            "text": "", 
+            "title": "Examples of ways to build a workflow"
+        }, 
+        {
+            "location": "/workflow/getting-started/#start-a-workflow-without-a-document", 
+            "text": "If the start of a workflow is connected to a workflow form, the workflow form is available on the main dashboard. After a user submits the workflow form, PaperTrail creates a new [item] that is sent to the workflow.", 
+            "title": "Start a workflow without a document"
+        }, 
+        {
+            "location": "/workflow/getting-started/#allocate-a-document-back-to-the-original-recipient", 
+            "text": "This method cannot be used in the example workflow, because in the example workflow, the original submitter is not part of the workflow.", 
+            "title": "Allocate a document back to the original recipient"
+        }, 
+        {
+            "location": "/workflow/getting-started/#add-multiple-timers", 
+            "text": "A timer triggers only 1 time. However, you can create multiple timeouts:   Do not do this:   Instead, do this:", 
+            "title": "Add multiple timers"
+        }, 
+        {
+            "location": "/workflow/getting-started/#put-a-document-into-an-unassigned-state", 
+            "text": "In an unassigned state, a document is not allocated to a user, but the document remains as part of the workflow.   To let a user change the state, use a workflow form:   To use a timer to change the state:", 
+            "title": "Put a document into an unassigned state"
+        }, 
+        {
+            "location": "/workflow/getting-started/#resume-a-workflow-based-on-an-event", 
+            "text": "You can resume a workflow when a specified event occurs.  In a workflow , a completeTask action \u2018listens\u2019 for the event. If the event occurs, the workflow continues. All the documents that are in the applicable nodes and for which the filters evaluate to true go to the next stage of the workflow.  This example shows part of a workflow. An agent closes an email ticket. If a customer replies to the closed ticket, the ticket is re-opened and the customer\u2019s email is sent to the agent.    To make the Document.response event \u2018listen\u2019 to emails, you must set up Email Import ( Import Management Email Import ).   In the Update Email Import screen, in the  Attachment Policy  field, select Thread.    When a new email arrives, if there is an existing thread (conversation), then PaperTrail \u2018check ins\u2019 a new copy of the email.    The Document.update and Document.update_content events will trigger. A Document.response event triggers, so workflows and rules can be configured to deal with the response.     For example, a workflow can notify the current user or allocate the updated document back to the original owner.  If there is no existing thread, then PaperTrail creates a new document, which starts the Document.create event.", 
+            "title": "Resume a workflow based on an event"
+        }, 
+        {
+            "location": "/workflow/getting-started/#create-a-branch-using-filters", 
+            "text": "The example workflow uses a timer and [workflow forms] to create a branch. Another method to create a branch is to use a filter.   Complex filters can become confusing. A conditional lets you make the connections clearer.", 
+            "title": "Create a branch using filters"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/", 
+            "text": "Workflow Timers do not Fire\n\n\nA Timer only fires once on a document, \u00a0consider adding a script to avoid adding multiple Timers.\n\nTimers do not fire immediately, they are indexing dependant.  \n\n\nMultiple Branches are firing within a Workflow:\n\n\nCheck that filters are in place, filters should oppose one another.\n\nCheck that Once Only Conditional Rules are used when only one branch should run.\n\nCheck that a filter is not changed down the one branch, and then becoming true for the other.  \n\n\nSee the following example:\n\n\n\n\nThe document gets filed when moved to an Unassigned Task\n\n\nUncheck the File option in the Rule Options  \n\n\nWorkflow Forms added do not show in the menu\n\n\nIn the Audit section of the Form:  \n\n\nCheck the Current Users Only checkbox and the Document Based Checkbox.  \n\n\nThe Current Users only should be checked when only the current users should have access to the form\n\nDocument Based should be checked if a Workflow is to be initiated on a document using a Workflow Form. (This should be the starting point)\n\nIf Document Based is not checked on a Form Initiated Workflow, a No Item file will be created in a Workflow/{WorkflowName} folder, to change this folder, add a Node in the Node field under the Audit section.  \n\n\nA document within a Workflow is unexpectedly filed/removed from the workflow OR a Workflow is starting over again\n\n\nCheck that there are no Node Rules clashing with the Workflow.\n\nNode rules should, if possible, be moved to the Workflow.\n\nThe Rule allocating to the Workflow should fire once, a filter may be used for this: workflow_id == ''  \n\n\nThe workflow does not stop when allocated to a user\n\n\nCheck that Human Tasks are used, Allocate Rules do not stop at that point in the workflow.  \n\n\nThe Workflow starts and/or follows a strange path\n\n\nCheck that the is one, and only one Start point, multiple End points may be used.\n\nCheck that there are no lone workflow sections, or sections that are not joined to the main body.  \n\n\nAn example of a lone workflow section that causes this:", 
+            "title": "Troubleshooting"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/#workflow-timers-do-not-fire", 
+            "text": "A Timer only fires once on a document, \u00a0consider adding a script to avoid adding multiple Timers. \nTimers do not fire immediately, they are indexing dependant.", 
+            "title": "Workflow Timers do not Fire"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/#multiple-branches-are-firing-within-a-workflow", 
+            "text": "Check that filters are in place, filters should oppose one another. \nCheck that Once Only Conditional Rules are used when only one branch should run. \nCheck that a filter is not changed down the one branch, and then becoming true for the other.    See the following example:", 
+            "title": "Multiple Branches are firing within a Workflow:"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/#the-document-gets-filed-when-moved-to-an-unassigned-task", 
+            "text": "Uncheck the File option in the Rule Options", 
+            "title": "The document gets filed when moved to an Unassigned Task"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/#workflow-forms-added-do-not-show-in-the-menu", 
+            "text": "In the Audit section of the Form:    Check the Current Users Only checkbox and the Document Based Checkbox.    The Current Users only should be checked when only the current users should have access to the form \nDocument Based should be checked if a Workflow is to be initiated on a document using a Workflow Form. (This should be the starting point) \nIf Document Based is not checked on a Form Initiated Workflow, a No Item file will be created in a Workflow/{WorkflowName} folder, to change this folder, add a Node in the Node field under the Audit section.", 
+            "title": "Workflow Forms added do not show in the menu"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/#a-document-within-a-workflow-is-unexpectedly-filedremoved-from-the-workflow-or-a-workflow-is-starting-over-again", 
+            "text": "Check that there are no Node Rules clashing with the Workflow. \nNode rules should, if possible, be moved to the Workflow. \nThe Rule allocating to the Workflow should fire once, a filter may be used for this: workflow_id == ''", 
+            "title": "A document within a Workflow is unexpectedly filed/removed from the workflow OR a Workflow is starting over again"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/#the-workflow-does-not-stop-when-allocated-to-a-user", 
+            "text": "Check that Human Tasks are used, Allocate Rules do not stop at that point in the workflow.", 
+            "title": "The workflow does not stop when allocated to a user"
+        }, 
+        {
+            "location": "/workflow/troubleshooting/#the-workflow-starts-andor-follows-a-strange-path", 
+            "text": "Check that the is one, and only one Start point, multiple End points may be used. \nCheck that there are no lone workflow sections, or sections that are not joined to the main body.    An example of a lone workflow section that causes this:", 
+            "title": "The Workflow starts and/or follows a strange path"
+        }
+    ]
+}
