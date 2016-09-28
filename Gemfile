@@ -23,6 +23,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'devise-bootstrap-views'
 
+gem 'puma'
 gem 'high_voltage'
 gem 'dotenv-rails'
 gem 'rails_12factor'

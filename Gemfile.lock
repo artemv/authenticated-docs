@@ -105,6 +105,7 @@ GEM
     orm_adapter (0.5.0)
     pg (0.19.0)
     pkg-config (1.1.7)
+    puma (3.4.0)
     rack (2.0.1)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
@@ -203,6 +204,7 @@ DEPENDENCIES
   high_voltage
   jquery-rails
   pg
+  puma
   rails (= 5.0.0.1)
   rails_12factor
   rails_admin
