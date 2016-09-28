@@ -6,6 +6,8 @@ dependencies:
   override:
     - npm install
     - bundle install
+  post:
+    - cp .env.example .env
 
 test:
   override:
