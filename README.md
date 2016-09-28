@@ -35,7 +35,10 @@ rails s
 ```
 * Switch to the deploy branch:
 ```
-git fetch && git checkout deploy && git reset --hard origin/deploy
+# first time
+git fetch && git checkout -f -b deploy origin/deploy
+# next time
+git fetch && git checkout -f deploy && git reset --hard origin/deploy
 ```
 * Provision the Heroku app with Sendgrid addon for sending auth emails like the one for 'forgot password' function
 * set up config vars at heroku from .env.example file
