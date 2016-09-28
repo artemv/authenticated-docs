@@ -7,32 +7,21 @@ A simple Rails app with Devise authentication to serve static docs generated wit
 Static html is served by [HighVoltage](https://github.com/thoughtbot/high_voltage) customized to serve pathes
 containing whitespaces and dir pathes missing 'index' filename.
 
-## Local installation
-
-* Clone the master repo: `git clone https://github.com/artemv/authenticated-docs.git && cd authenticated-docs`
-* Copy .env.example file to .env and change values as appropriate for your local env
-* Install Ruby 2.3.1 from https://www.ruby-lang.org/en/downloads/ or via RVM (https://rvm.io/)
-* Install Bundler and dependencies:
-```
-gem install bundler
-bundle install
-```
+## Usage
 * Install Node.JS (v5.1 or higher)
-* Install NPM dependencies: `npm install`
-* generate site docs to some dir like 'site'
-* copy the docs pages to relevant dirs: `./node_modules/.bin/gulp prepare`
-* run local webserver:
+This assumes you have a docs-building project in Git, the built docs are in 'site' directory and now want to deploy it
+to Heroku. In your projects dir:
+* Install authenticated-docs and couple additional tools:
 ```
-rails s
+npm install authenticated-docs gh-pages gulp gulp-debug
 ```
-
-## Deployment
-* Create a my-docs app at Heroku (use whatever app name you like)
-* Fork the https://github.com/artemv/authenticated-docs repo
-* Follow steps from 'Local installation' section, replacing git url with the one of your fork
-* (In your local directory of authenticated-docs) publish the prepared dirs to 'deploy' Git branch:
+* Copy docs files to authenticated-docs dirs with script:
 ```
-./node_modules/gh-pages/bin/gh-pages -d . -b deploy
+./node_modules/.bin/gulp --gulpfile node_modules/authenticated-docs/Gulpfile.js --cwd ./ prepare
+```
+* Publish the prepared dir to 'deploy' Git branch of your docs project:
+```
+./node_modules/gh-pages/bin/gh-pages -d node_modules/authenticated-docs -b deploy
 ```
 * Switch to the deploy branch:
 ```
@@ -41,11 +30,32 @@ git fetch && git checkout -f -b deploy origin/deploy
 # next time
 git fetch && git checkout -f deploy && git reset --hard origin/deploy
 ```
+* Create a my-docs app at Heroku (use whatever app name you like)
 * Provision the Heroku app with Sendgrid addon for sending auth emails like the one for 'forgot password' function
-* set up config vars at heroku from .env.example file
+* set up config vars at heroku based on
+[.env.example](https://raw.githubusercontent.com/artemv/authenticated-docs/master/.env.example) file of this project
 * Push the deploy branch to Heroku
 ```
 git remote add heroku https://git.heroku.com/my-docs.git # user proper path for your app
 git push -f heroku HEAD:master
+heroku run rake db:migrate
 ```
-You're all set!
+
+## Local installation
+This section is for those who want to make modifications to this app.
+* Clone the master repo: `git clone https://github.com/artemv/authenticated-docs.git && cd authenticated-docs`
+* Copy .env.example file to .env and change values as appropriate for your local env
+* Install Ruby 2.3.1 from https://www.ruby-lang.org/en/downloads/ or via RVM (https://rvm.io/)
+* Install Bundler and dependencies:
+```
+gem install bundler
+bundle install
+```
+* Install NPM dependencies: `npm install`
+* generate site docs to some dir like 'site'
+* copy the docs pages to relevant dirs: `./node_modules/.bin/gulp prepare`
+* run local webserver:
+```
+rails s
+```
+* open the app in browser: http://localhost:3000
