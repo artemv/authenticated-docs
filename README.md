@@ -1,6 +1,3 @@
-[![NPM info](https://nodei.co/npm/authenticated-docs.png?downloads=true)](https://npmjs.org/package/authenticated-docs)
-
-[![Code Climate](https://codeclimate.com/github/artemv/authenticated-docs/badges/gpa.svg)](https://codeclimate.com/github/artemv/authenticated-docs)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 ## What is it
