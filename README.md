@@ -8,7 +8,7 @@ Static html is served by [HighVoltage](https://github.com/thoughtbot/high_voltag
 containing whitespaces and dir pathes missing 'index' filename. [RailsAdmin](https://github.com/sferik/rails_admin) is used for users administration.
 
 ## Usage
-This assumes you have a docs-building project in Git, the built docs are in 'site' directory and now want to deploy it
+This assumes you have a docs-building project in Git, the built docs are in 'site' directory and you want to deploy it
 to Heroku.
 * Install Node.JS (v5.1 or higher)
 * Change current dir to your project: `cd my-docs-project`
