@@ -3,9 +3,11 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 ## What is it
-A simple Rails app with Devise authentication to serve static docs generated with a tool like [MkDocs](http://www.mkdocs.org/).
+A simple Rails app with Devise authentication to serve static docs generated with a tool like 
+[MkDocs](http://www.mkdocs.org/) or [Gitbook](https://toolchain.gitbook.com).
 Static html is served by [HighVoltage](https://github.com/thoughtbot/high_voltage) customized to serve pathes
-containing whitespaces and dir pathes missing 'index' filename. [RailsAdmin](https://github.com/sferik/rails_admin) is used for users administration.
+containing whitespaces and dir pathes missing 'index' filename. [RailsAdmin](https://github.com/sferik/rails_admin) is 
+used for users administration.
 
 ## Usage
 This assumes you have a docs-building project in Git, the built docs are in 'site' directory and you want to deploy it
@@ -54,7 +56,8 @@ gem install bundler
 bundle install
 ```
 * Install NPM dependencies: `npm install`
-* generate site docs to some dir like 'site'
+* generate site docs to './site' dir
+* change Gulpfile.js to have `const TARGET_DIR = '.'` - the default value there is for prod usage   
 * copy the docs pages to relevant dirs: `./node_modules/.bin/gulp prepare`
 * run local webserver:
 ```
