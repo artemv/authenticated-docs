@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "freeform-semantic-commit-analyzer": "^1.1.0",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "^6.3.6",
     "condition-circle": "^1.2.0"
   },
   "release": {
